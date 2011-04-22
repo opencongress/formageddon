@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Andy Ross", "Participatory Politics Foundation"]
   s.email       = ["aross@opencongress.org"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Formageddon automates webform submission.}
+  s.description = %q{Formageddon automates webform submission.}
 
   s.rubyforge_project = "formageddon"
 
