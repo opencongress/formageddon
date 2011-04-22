@@ -1,0 +1,665 @@
+HTTP/1.1 200 OK
+Date: Wed, 16 Jun 2010 21:59:36 GMT
+Server: Apache/1.3.37 (Unix) PHP/5.2.0 mod_ssl/2.8.28 OpenSSL/0.9.8b
+X-Powered-By: PHP/5.2.0
+Transfer-Encoding: chunked
+Content-Type: text/html
+
+<html>
+<head>
+</head>
+<body>
+<form id="contact-form" action="http://www.example.com/1_form_action" method="post" enctype="application/x-www-form-urlencoded" accept-charset="utf-8" onsubmit="return _CF_checkCFForm_1(this)">
+        <fieldset>
+			<div class="select-row">
+                <div class="label">
+                	<label for="salutation">Salutation <span class="required">*</span></label>
+                </div>
+                
+                <div class="select">
+                	
+	
+
+        
+	
+ 
+		
+		
+		
+		
+		
+        
+        <select name="salutation" id="salutation">
+            <option label="--" value="">--</option>
+             
+   				<option label="Mr." value="Mr.">Mr.</option>
+			
+   				<option label="Ms." value="Ms.">Ms.</option>
+			
+   				<option label="Mrs." value="Mrs.">Mrs.</option>
+			
+   				<option label="Miss" value="Miss">Miss</option>
+			
+   				<option label="Mr. and Mrs." value="Mr. and Mrs.">Mr. and Mrs.</option>
+			
+   				<option label="Dr." value="Dr.">Dr.</option>
+			
+   				<option label="Prof." value="Prof.">Prof.</option>
+			
+   				<option label="Senator" value="Senator">Senator</option>
+			
+   				<option label="Gov." value="Gov.">Gov.</option>
+			
+   				<option label="Congressman" value="Congressman">Congressman</option>
+			
+   				<option label="Hon." value="Hon.">Hon.</option>
+			
+   				<option label="Fr." value="Fr.">Fr.</option>
+			
+   				<option label="Sister" value="Sister">Sister</option>
+			
+   				<option label="Rabbi" value="Rabbi">Rabbi</option>
+			
+   				<option label="Reverend" value="Reverend">Reverend</option>
+			
+   				<option label="Fleet Admiral" value="Fleet Admiral">Fleet Admiral</option>
+			
+   				<option label="Admiral" value="Admiral">Admiral</option>
+			
+   				<option label="Vice Admiral" value="Vice Admiral">Vice Admiral</option>
+			
+   				<option label="Rear Admiral (upper half)" value="Rear Admiral (upper half)">Rear Admiral (upper half)</option>
+			
+   				<option label="Rear Admiral (lower half)" value="Rear Admiral (lower half)">Rear Admiral (lower half)</option>
+			
+   				<option label="Captain" value="Captain">Captain</option>
+			
+   				<option label="Commander" value="Commander">Commander</option>
+			
+   				<option label="Lieutenant Commander" value="Lieutenant Commander">Lieutenant Commander</option>
+			
+   				<option label="Lieutenant" value="Lieutenant">Lieutenant</option>
+			
+   				<option label="Lieutenant, Junior Grade" value="Lieutenant, Junior Grade">Lieutenant, Junior Grade</option>
+			
+   				<option label="Ensign" value="Ensign">Ensign</option>
+			
+   				<option label="Master Chief Petty Officer of the Navy" value="Master Chief Petty Officer of the Navy">Master Chief Petty Officer of the Navy</option>
+			
+   				<option label="Master Chief Petty Officer" value="Master Chief Petty Officer">Master Chief Petty Officer</option>
+			
+   				<option label="Senior Chief Petty Officer" value="Senior Chief Petty Officer">Senior Chief Petty Officer</option>
+			
+   				<option label="Chief Petty Officer" value="Chief Petty Officer">Chief Petty Officer</option>
+			
+   				<option label="Petty Officer First Class" value="Petty Officer First Class">Petty Officer First Class</option>
+			
+   				<option label="Petty Officer Second Class" value="Petty Officer Second Class">Petty Officer Second Class</option>
+			
+   				<option label="Petty Officer Third Class" value="Petty Officer Third Class">Petty Officer Third Class</option>
+			
+   				<option label="Seaman" value="Seaman">Seaman</option>
+			
+   				<option label="Seaman Apprentice" value="Seaman Apprentice">Seaman Apprentice</option>
+			
+   				<option label="Seaman Recruit" value="Seaman Recruit">Seaman Recruit</option>
+			
+   				<option label="Chief Warrant Officer" value="Chief Warrant Officer">Chief Warrant Officer</option>
+			
+   				<option label="Warrant Officer" value="Warrant Officer">Warrant Officer</option>
+			
+   				<option label="Sgt Major Of The Corps" value="Sgt Major Of The Corps">Sgt Major Of The Corps</option>
+			
+   				<option label="Sergeant Major" value="Sergeant Major">Sergeant Major</option>
+			
+   				<option label="Master Gunnery Sgt" value="Master Gunnery Sgt">Master Gunnery Sgt</option>
+			
+   				<option label="First Sergeant" value="First Sergeant">First Sergeant</option>
+			
+   				<option label="Master Sergeant" value="Master Sergeant">Master Sergeant</option>
+			
+   				<option label="Gunnery Sergeant" value="Gunnery Sergeant">Gunnery Sergeant</option>
+			
+   				<option label="Staff Sergeant" value="Staff Sergeant">Staff Sergeant</option>
+			
+   				<option label="Sergeant" value="Sergeant">Sergeant</option>
+			
+   				<option label="Corporal" value="Corporal">Corporal</option>
+			
+   				<option label="Lance Corporal" value="Lance Corporal">Lance Corporal</option>
+			
+   				<option label="Private First Class" value="Private First Class">Private First Class</option>
+			
+   				<option label="Private" value="Private">Private</option>
+			
+   				<option label="General of the Air Force" value="General of the Air Force">General of the Air Force</option>
+			
+   				<option label="General" value="General">General</option>
+			
+   				<option label="Lieutenant General" value="Lieutenant General">Lieutenant General</option>
+			
+   				<option label="Major General" value="Major General">Major General</option>
+			
+   				<option label="Brigadier General" value="Brigadier General">Brigadier General</option>
+			
+   				<option label="Colonel" value="Colonel">Colonel</option>
+			
+   				<option label="Lieutenant Colonel" value="Lieutenant Colonel">Lieutenant Colonel</option>
+			
+   				<option label="Major" value="Major">Major</option>
+			
+   				<option label="First Lieutenant" value="First Lieutenant">First Lieutenant</option>
+			
+   				<option label="Second Lieutenant" value="Second Lieutenant">Second Lieutenant</option>
+			
+   				<option label="Chief Master Sergeant of the Air Force" value="Chief Master Sergeant of the Air Force">Chief Master Sergeant of the Air Force</option>
+			
+   				<option label="Command  Chief Master Sergeant" value="Command  Chief Master Sergeant">Command  Chief Master Sergeant</option>
+			
+   				<option label="Chief Master Sergeant" value="Chief Master Sergeant">Chief Master Sergeant</option>
+			
+   				<option label="Senior Master Sergeant" value="Senior Master Sergeant">Senior Master Sergeant</option>
+			
+   				<option label="Technical Sergeant" value="Technical Sergeant">Technical Sergeant</option>
+			
+   				<option label="Senior Airman" value="Senior Airman">Senior Airman</option>
+			
+   				<option label="Airman First Class" value="Airman First Class">Airman First Class</option>
+			
+   				<option label="Airman" value="Airman">Airman</option>
+			
+        </select>
+	
+				</div>
+            </div>
+            
+            <div class="row">
+                <div class="label">
+                	<label for="fname">First Name <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="fname" type="text" id="fname"  />
+				</div>
+            </div>
+            
+            <div class="row">
+                <div class="label">
+                	<label for="lname">Last Name <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="lname" type="text" id="lname"  />
+				</div>
+            </div>
+			
+			
+            </fieldset>
+            <fieldset>
+			
+			<div class="row">
+                <div class="label">
+                	<label for="mailing_streetAddress1">Street Address <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="mailing_streetAddress1" type="text" id="mailing_streetAddress1"  />
+				</div>
+            </div>
+            
+            <div class="row">
+                <div class="label">
+                	<label for="mailing_streetAddress2">Street Address (2)</label>
+                </div>
+                <div class="input">
+                	<input name="mailing_streetAddress2" type="text" id="mailing_streetAddress2"  />
+				</div>
+            </div>
+            
+            <div class="row city">
+                <div class="label">
+                	<label for="mailing_city">City <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="mailing_city" type="text" id="mailing_city"  />
+				</div>
+            </div>
+            
+            <div class="select-row state">
+                <div class="label">   
+                	<label for="state" class="state">State <span class="required">*</span></label>
+                </div>
+                
+                <div class="select">
+					
+						
+	
+	
+	
+	
+
+		
+		
+		
+
+
+		
+	
+	
+	
+	<select name="state" id="state">
+	
+	<option value="null">--</option>
+	<option value="AK">AK</option>
+	<option value="AL">AL</option>
+	<option value="AR">AR</option>
+	<option value="AZ">AZ</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DC">DC</option>
+	<option value="DE">DE</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="IA">IA</option>
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="MA" selected=" selected">MA</option>
+	<option value="MD">MD</option>
+	<option value="ME">ME</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MO">MO</option>
+	<option value="MS">MS</option>
+	<option value="MT">MT</option>
+	<option value="NC">NC</option>
+	<option value="ND">ND</option>
+	<option value="NE">NE</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>
+	<option value="NV">NV</option>
+	<option value="NY">NY</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VA">VA</option>
+	<option value="VT">VT</option>
+	<option value="WA">WA</option>
+	<option value="WI">WI</option>
+	<option value="WV">WV</option>
+	<option value="WY">WY</option>
+	</select>
+	
+	
+					
+            	</div>
+			</div>
+			
+            <div class="row zip">
+                <div class="label">
+                	<label for="mailing_zipCode">Zip Code <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="mailing_zipCode" type="text" id="mailing_zipCode"  />
+				</div>
+            </div>
+			<div class="clear"></div>
+			</fieldset>
+            <fieldset>
+            
+            <div class="row">
+				<div class="label">
+					<label for="phone_number">Phone Number</label>
+				</div>
+				<div class="input">
+					<input name="phone_number" type="text" id="phone_number"  />
+				</div>
+			</div>
+            
+			<div class="row">
+				<div class="label">
+					<label for="email_address">e-mail <span class="required">*</span></label>
+				</div>
+				<div class="input">
+					<input name="email" type="text" id="email_address"  />
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="label">
+					<label for="verify_email">Verify e-mail <span class="required">*</span></label>
+				</div>
+				<div class="input">
+					<input name="verify_email" type="text" id="verify_email"  />
+				</div>
+			</div>
+
+			</fieldset>
+			<fieldset>
+			
+			
+			<div class="select-row">
+				<div class="label">
+					<label for="topic">Topic <span class="required">*</span></label>
+				</div>
+
+				<div class="select">
+					 
+	
+	
+	
+	
+	
+    
+    
+    
+	
+    
+    
+	
+	
+	
+		
+	
+    
+    
+	
+    
+     
+	
+	
+
+ 
+	
+
+		
+		
+		
+		
+		
+                				
+								<select name="topic" id="topic" >
+
+									<option label="-- Select an Issue --" value="" selected="selected">-- Select an Issue --</option>
+									
+                                    
+                                        
+                                             
+											
+                                                <option label="Please Select" value="NoSelect">Please Select</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Abortion" value="WOMEN">Abortion</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Agriculture" value="AG">Agriculture</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Arts & Humanities" value="ART">Arts & Humanities</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Animal Rights" value="AMINMARTS">Animal Rights</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Aviation" value="TRANS">Aviation</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Banking" value="BANK">Banking</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Budget" value="BUD">Budget</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Civil Rights" value="CIVRTS">Civil Rights</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Commerce" value="CMRC">Commerce</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Communications" value="COMM">Communications</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Crime" value="CRIME">Crime</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Defense" value="DEF">Defense</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Economy" value="TAX">Economy</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Education" value="ED">Education</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Employment" value="ABL">Employment</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Energy" value="EN">Energy</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Environment" value="ENV">Environment</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Food & Drug" value="AG">Food & Drug</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Foreign Relations" value="FORAFF">Foreign Relations</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Government Affairs" value="GOV">Government Affairs</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Health Care" value="HEALTH">Health Care</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Homeland Security" value="HOMESEC">Homeland Security</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Immigration" value="IMM">Immigration</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Intelligence" value="DEF">Intelligence</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Judicial" value="CRIMEJUST">Judicial</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Labor" value="LAB">Labor</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Small Business" value="BUS">Small Business</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Social Security" value="SOCSEC">Social Security</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Taxes" value="TAX">Taxes</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Telecommunications" value="COMM">Telecommunications</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Trade" value="TRADE">Trade</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Transportation" value="TRANS">Transportation</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Veterans" value="VET">Veterans</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Welfare" value="WELF">Welfare</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Womens Issues" value="WOMEN">Womens Issues</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Assistance Needed" value="CASE">Assistance Needed</option>
+                                          
+                                        
+                                        
+                                             
+											
+                                                <option label="Other" value="OTHER">Other</option>
+                                          
+                                        
+										
+								</select>
+				</div>
+			</div>
+            
+            <div class="row">
+                <div class="label">
+                	<label for="subject">Subject <span class="required">*</span></label>
+                </div>
+                <div class="input">
+                	<input name="subject" type="text" id="subject"  />
+				</div>
+            </div>
+
+			<div class="row">
+				<div class="label">
+					<label for="message">Message <span class="required">*</span></label>
+				</div>
+
+				<div class="textarea">
+					<textarea id="message" name="message" rows="50" cols="300"></textarea>
+				</div>
+
+				<div class="clear"><!-- // --></div>
+			</div>
+
+			<div class="btn-container">
+				
+	
+	
+	
+	
+
+		
+		
+			<input type="image" src="http://kerry.senate.gov/images/structure/buttons/submit.png" alt="Submit" class="rollover" />
+		
+	
+			</div>
+            </fieldset>
+		</form></body>
+</html>

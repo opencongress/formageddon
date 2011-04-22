@@ -1,0 +1,18 @@
+.formageddon_container
+  %h2 Formageddon: Build Contact Steps
+
+  = form_for @contact_step do |f|
+    = f.label :command, "Enter first step (usually something like: 'visit::http://somesite.com/path/to/form'):"
+    %br
+    = f.text_field :command, :value => 'visit::'
+  
+    = hidden_field_tag :next_step, 'true'
+
+    = f.submit 'Build Rules'
+    
+:plain
+  <style>
+    .formageddon_container {
+      padding: 20px;
+    }
+  </style>

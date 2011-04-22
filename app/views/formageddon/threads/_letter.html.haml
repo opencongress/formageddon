@@ -1,0 +1,21 @@
+.formageddon_letter
+  .formageddon_letter_heading
+    .from
+      - if letter.direction == 'TO_RECIPIENT'
+        = render 'formageddon/threads/letter_sender_address', :letter => letter
+      - else
+        = render 'formageddon/threads/letter_recipient_address', :letter => letter
+
+    .to
+      - if letter.direction == 'TO_RECIPIENT'
+        = render 'formageddon/threads/letter_recipient_address', :letter => letter
+      - else
+        = render 'formageddon/threads/letter_sender_address', :letter => letter
+    
+    .date= letter.created_at.strftime("%B %d, %Y")
+    .subject= "RE: #{letter.subject}"
+    
+    .body
+      -# will do more extensive markdown later
+      = letter.message.gsub(/\n/, "<br />").html_safe
+    

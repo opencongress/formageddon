@@ -1,0 +1,17 @@
+Formageddon Test App
+
+%p
+  = link_to "Sign In", '/users/sign_in'
+  
+%p
+  = link_to "Create a contactable object", new_contactable_object_path
+  %ul
+    - ContactableObject.all.each do |o|
+      %li
+        = o.name
+        - if o.formageddon_contact_steps.empty?
+          = link_to "Build Contact Rules", "/formageddon/contact_steps/new?recipient_id=#{o.id}&recipient_type=#{o.class.name}"
+          =# link_to "Build Contact Rules", polymorphic_path(o.formageddon_recipient)
+        - else
+          = link_to "Contact", "/formageddon/threads/new?recipient_id=#{o.id}&recipient_type=#{o.class.name}"
+        

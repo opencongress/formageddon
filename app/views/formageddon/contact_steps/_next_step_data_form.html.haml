@@ -1,0 +1,20 @@
+.next_step_data{ :id => "next_step_data_#{form_i}", :style => 'display: none;'}
+  %p 
+    Enter data so the builder can submit this form and parse the next step.
+    %strong You only need to fill in fields that are used on this form.
+  - Formageddon::FormageddonContactStep.contact_fields.each do |f|
+    - unless f.to_s == 'submit_button' or f.to_s == 'leave_blank'
+      .temp_data_field
+        = label_tag(label_for f)
+        = text_field_tag "formageddon_temp_data[#{f}]"
+
+:javascript
+  $('next_radio_true_#{form_i}').observe('click', function() {
+    $('next_step_data_#{form_i}').show();
+    $('success_string_#{form_i}').hide();
+  });
+  
+  $('next_radio_false_#{form_i}').observe('click', function() {
+    $('next_step_data_#{form_i}').hide();
+    $('success_string_#{form_i}').show();
+  });

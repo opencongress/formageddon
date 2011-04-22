@@ -1,0 +1,21 @@
+.form_mapping
+  %table
+    %tr
+      %th Field Number
+      %th Field Name
+      %th
+      %th Message Field
+    - form_mapping.formageddon_form_fields.each do |f|
+      %tr
+        %td= f.field_number
+        %td= f.name
+        %td =>
+        %td= f.value
+      - if f.value == 'captcha_solution'
+        %tr
+          %td{ :colspan => 4}
+            The captcha image is the 
+            = (f.formageddon_form.formageddon_form_captcha_image.image_number + 1).ordinalize
+            image in the form with the css selector:
+            = "\"#{f.formageddon_form.formageddon_form_captcha_image.css_selector}\""
+        

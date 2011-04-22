@@ -1,0 +1,23 @@
+<h1>Listing contactable_objects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contactable_objects.each do |contactable_object| %>
+  <tr>
+    <td><%= contactable_object.name %></td>
+    <td><%= link_to 'Show', contactable_object %></td>
+    <td><%= link_to 'Edit', edit_contactable_object_path(contactable_object) %></td>
+    <td><%= link_to 'Destroy', contactable_object, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contactable object', new_contactable_object_path %>

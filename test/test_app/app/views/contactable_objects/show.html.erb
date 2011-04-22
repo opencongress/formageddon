@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @contactable_object.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_contactable_object_path(@contactable_object) %> |
+<%= link_to 'Back', contactable_objects_path %>
