@@ -45,15 +45,17 @@
       %p After sending, this letter will be viewable to:
       = f.select :is_public, [['Public -- Anyone', 1], ['Friends -- MyOC Friends Only', 1], ['Private -- You Only', 0]]
     
-    %div.message_fields
-      = f.fields_for :formageddon_letters do |fl|
-        %p.subject
-          = fl.label :subject, label_for(:subject)
-          = fl.text_field :subject
+    %div.message_fields_wrapper
+      %h3 Begin typing here
+      %div.message_fields
+        = f.fields_for :formageddon_letters do |fl|
+          %p.subject
+            = fl.label :subject, label_for(:subject)
+            = fl.text_field :subject
           
-        %p.message
-          = fl.label :message, label_for(:message)
-          = fl.text_area :message
+          %p.message
+            = fl.label :message, label_for(:message)
+            = fl.text_area :message
     
     = f.hidden_field :formageddon_recipient_id
     = f.hidden_field :formageddon_recipient_type
