@@ -1,59 +1,59 @@
 .formageddon_contact_form    
   = form_for thread do |f|
-    = f.label :sender_title, label_for(:sender_title)
-    = f.select :sender_title, options_for_select(Formageddon::FormageddonFormField.titles.map { |s| [s.to_s, s.to_s] })
-    %br
-  
-    = f.label :sender_first_name, label_for(:sender_first_name)
-    = f.text_field :sender_first_name
-    %br
-  
-    = f.label :sender_last_name, label_for(:sender_last_name)
-    = f.text_field :sender_last_name
-    %br
-  
-    = f.label :sender_email, label_for(:sender_email)
-    = f.text_field :sender_email
-    %br
-  
-    = f.label :sender_address1, label_for(:sender_address1)
-    = f.text_field :sender_address1
-    %br
-  
-    = f.label :sender_address2, label_for(:sender_address2)
-    = f.text_field :sender_address2
-    %br
-  
-    = f.label :sender_city, label_for(:sender_city)
-    = f.text_field :sender_city
-    %br
-  
-    = f.label :sender_state, label_for(:sender_state)
-    = f.select :sender_state, options_for_select(Formageddon::FormageddonFormField.states.map { |s| [s.to_s, s.to_s] }, thread.sender_state)
-    %br
-  
-    = f.label :sender_zip5, label_for(:sender_zip5)
-    = f.text_field :sender_zip5
-    %br
-  
-    = f.label :sender_zip4, label_for(:sender_zip4)
-    = f.text_field :sender_zip4
-    %br
-  
-    = f.fields_for :formageddon_letters do |fl|
-      = fl.label :subject, label_for(:subject)
-      = fl.text_field :subject
-      %br
-  
-      = fl.label :message, label_for(:message)
-      = fl.text_area :message
-      %br
-    -# TEMP  
-    = f.label :is_public, 'Privacy Options', :style => 'height: 100px;', :style => 'float: left; margin-right: 11px;'
-    .privacy_options{:style=>'display: block; float: left; width: 280px;'}
-      After sending, this letter will be viewable to:
-      %br
+    %p.sender_title
+      = f.label :sender_title, label_for(:sender_title)
+      = f.select :sender_title, options_for_select(Formageddon::FormageddonFormField.titles.map { |s| [s.to_s, s.to_s] })
+
+    %p.sender_first_name
+      = f.label :sender_first_name, label_for(:sender_first_name)
+      = f.text_field :sender_first_name
+    
+    %p.sender_last_name
+      = f.label :sender_last_name, label_for(:sender_last_name)
+      = f.text_field :sender_last_name
+
+    %p.sender_email
+      = f.label :sender_email, label_for(:sender_email)
+      = f.text_field :sender_email
+
+    %p.sender_address1
+      = f.label :sender_address1, label_for(:sender_address1)
+      = f.text_field :sender_address1
+
+    %p.sender_address2
+      = f.label :sender_address2, label_for(:sender_address2)
+      = f.text_field :sender_address2
+
+    %p.sender_city
+      = f.label :sender_city, label_for(:sender_city)
+      = f.text_field :sender_city
+
+    %p.sender_state
+      = f.label :sender_state, label_for(:sender_state)
+      = f.select :sender_state, options_for_select(Formageddon::FormageddonFormField.states.map { |s| [s.to_s, s.to_s] }, thread.sender_state)
+    
+    %p.sender_zip5
+      = f.label :sender_zip5, label_for(:sender_zip5)
+      = f.text_field :sender_zip5
+
+    %p.sender_zip4
+      = f.label :sender_zip4, label_for(:sender_zip4)
+      = f.text_field :sender_zip4
+      
+    %p.privacy_options
+      = f.label :is_public, 'Privacy Options'
+      %p After sending, this letter will be viewable to:
       = f.select :is_public, [['Public -- Anyone', 1], ['Friends -- MyOC Friends Only', 1], ['Private -- You Only', 0]]
+    
+    %div.message_fields
+      = f.fields_for :formageddon_letters do |fl|
+        %p.subject
+          = fl.label :subject, label_for(:subject)
+          = fl.text_field :subject
+          
+        %p.message
+          = fl.label :message, label_for(:message)
+          = fl.text_area :message
     
     = f.hidden_field :formageddon_recipient_id
     = f.hidden_field :formageddon_recipient_type
