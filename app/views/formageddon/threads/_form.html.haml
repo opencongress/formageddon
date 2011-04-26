@@ -42,7 +42,7 @@
       
     %p.privacy_options
       = f.label :is_public, 'Privacy Options'
-      %p After sending, this letter will be viewable to:
+      %span After sending, this letter will be viewable to:
       = f.select :is_public, [['Public -- Anyone', 1], ['Friends -- MyOC Friends Only', 1], ['Private -- You Only', 0]]
     
     %div.message_fields_wrapper
