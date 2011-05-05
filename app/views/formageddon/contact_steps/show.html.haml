@@ -1,28 +1,14 @@
-.formageddon_container
-  %h2 Contact Webform Description
-  %strong The form has been configured with the following settings:
+%h2 Contact Webform Description
+%strong The form has been configured with the following settings:
 
-  - @contact_steps.each do |step|
-    %div.form_step
-      %strong= "Step #{step.step_number}:"
-      - if step.command =~ /^submit_form/
-        Submit the form with the following mapping:
-        = render :partial => 'form_mapping', :object => step.formageddon_form
-      - elsif step.command =~ /^visit/
-        Go to the page:
-        = step.command.split(/::/)[1]
-  = link_to "Test sending to this recipient", :controller => 'formageddon/threads', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient_id, :recipient_type => @contact_steps.first.formageddon_recipient_type
+- @contact_steps.each do |step|
+  %div.form_step
+    %strong= "Step #{step.step_number}:"
+    - if step.command =~ /^submit_form/
+      Submit the form with the following mapping:
+      = render :partial => 'form_mapping', :object => step.formageddon_form
+    - elsif step.command =~ /^visit/
+      Go to the page:
+      = step.command.split(/::/)[1]
+= link_to "Test sending to this recipient", :controller => 'formageddon/threads', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient.id, :recipient_type => @contact_steps.first.formageddon_recipient.class
 
--# Style should be moved to a better place
-:plain
-  <style>
-    .formageddon_container {
-      padding: 20px;
-    }
-    .form_mapping {
-      width: 600px;
-      border: 1px dashed #000;
-      padding: 10px 15px;
-      margin: 10px 0 10px 20px;
-    }
-  </style>

@@ -1,11 +1,21 @@
 module Formageddon
   class ContactStepsController < ApplicationController
+    unloadable
+    
     before_filter :admin_check
+    
+    layout 'formageddon'
     
     def new
       if params[:recipient_id].nil? or params[:recipient_type].nil?
         flash[:error] = "You must specify a recipient id and type to build steps!"
         redirect_to "/"
+      end
+      
+      @existing_contact_steps = FormageddonContactStep.where(["formageddon_recipient_id=? AND formageddon_recipient_type=?", params[:recipient_id], params[:recipient_type]]).order('step_number ASC')
+      if !@existing_contact_steps.empty? and params[:overwrite] == 'true'
+        @existing_contact_steps.first.formageddon_recipient.formageddon_contact_steps.clear 
+        @existing_contact_steps = []
       end
       
       session[:formageddon_recipient_id] = params[:recipient_id]
@@ -76,6 +86,26 @@ module Formageddon
         @contact_steps = FormageddonContactStep.where(["id=?", params[:id]])
       end
     end
+    
+    def index
+      @contact_steps_grouped = FormageddonContactStep.select('formageddon_recipient_id, formageddon_recipient_type').group('formageddon_recipient_id, formageddon_recipient_type')
+    end
+    
+    def destroy
+      if params[:recipient_id].nil? or params[:recipient_type].nil?
+        flash[:error] = "Must specificy recipient ID and type."
+        redirect_to :action => 'index'
+        return
+      end
+      
+      recipient = Object.const_get(params[:recipient_type]).find_by_id(params[:recipient_id])
+      
+      recipient.formageddon_contact_steps.clear unless (recipient.nil? or recipient.formageddon_contact_steps.empty?)
+      
+      flash[:notice] = "Configuration deleted for #{recipient}"
+      redirect_to :action => 'index'
+    end
+    
     
     
     protected

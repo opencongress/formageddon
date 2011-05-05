@@ -1,0 +1,7 @@
+- content_for :content do
+  = stylesheet_link_tag("formageddon")
+
+  .formageddon_container
+    = yield
+
+= render :file => 'layouts/application'

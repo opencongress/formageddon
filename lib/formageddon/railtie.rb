@@ -21,5 +21,9 @@ module Formageddon
     initializer 'formageddon.acts_as_formageddon_sender' do |app|
       ActiveRecord::Base.send :include, Formageddon::ActsAsFormageddonSender::Base
     end
+    
+    initializer "static assets" do |app|
+      app.middleware.use ::ActionDispatch::Static, "#{root}/public"
+    end
   end
 end

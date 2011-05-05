@@ -1,0 +1,37 @@
+.formageddon_container {
+  padding: 20px;
+}
+.form_mapping {
+  width: 600px;
+  border: 1px dashed #000;
+  padding: 10px 15px;
+  margin: 10px 0 10px 20px;
+}
+
+table.contact_steps_list th, table.contact_steps_list td {
+  padding: 10px;
+}
+
+#back_button {
+  margin-bottom: 15px;
+}
+.contact_step_form {
+  width: 700px;
+  padding: 30px; 
+  border: 1px solid #000; 
+  margin: 20px;
+}
+.next_step_data {
+  width: 500px;
+  border: 1px dashed #000;
+  padding: 10px 15px;
+  margin-top: 20px;
+}
+.temp_data_field label {
+  width: 120px;
+  display: inline-block;
+}
+table .form_builder td {
+  padding: 5px;
+  margin: 0 5px;
+}

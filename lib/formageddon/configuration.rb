@@ -3,11 +3,15 @@ module Formageddon
     attr_accessor :admin_check_filter
     attr_accessor :user_method
     attr_accessor :sender_user_mapping
+    attr_accessor :reply_domain
+    attr_accessor :privacy_options
     
     def initialize
       @admin_check_filter = nil
       @user_method = nil
       @sender_user_mapping = {}
+      @reply_domain = nil
+      @privacy_options = []
     end
   end
 

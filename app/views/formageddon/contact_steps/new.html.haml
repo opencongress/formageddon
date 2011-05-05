@@ -1,18 +1,17 @@
-.formageddon_container
-  %h2 Formageddon: Build Contact Steps
+%h2 Formageddon: Build Contact Steps
 
+- if @existing_contact_steps.empty?
   = form_for @contact_step do |f|
     = f.label :command, "Enter first step (usually something like: 'visit::http://somesite.com/path/to/form'):"
     %br
     = f.text_field :command, :value => 'visit::'
-  
+
     = hidden_field_tag :next_step, 'true'
 
     = f.submit 'Build Rules'
-    
-:plain
-  <style>
-    .formageddon_container {
-      padding: 20px;
-    }
-  </style>
+- else
+  %strong Contact Steps already exist for this recipient!
+  %p
+    = link_to 'View Contact Steps', :action => 'show', :recipient_id => params[:recipient_id], :recipient_type => params[:recipient_type]
+    \|
+    = link_to 'Overwrite Steps (Start Over)', :action => 'new', :recipient_id => params[:recipient_id], :recipient_type => params[:recipient_type], :overwrite => 'true'

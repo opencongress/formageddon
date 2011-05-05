@@ -1,7 +1,11 @@
 Formageddon Test App
 
 %p
-  = link_to "Sign In", '/users/sign_in'
+  - if user_signed_in?
+    = "Logged in as #{current_user.email} | "
+    = link_to "Sign Out", '/users/sign_out'
+  - else
+    = link_to "Sign In", '/users/sign_in'
   
 %p
   = link_to "Create a contactable object", new_contactable_object_path

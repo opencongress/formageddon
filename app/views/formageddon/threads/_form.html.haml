@@ -1,3 +1,5 @@
+- after_send_url ||= nil
+
 .formageddon_contact_form    
   = form_for thread do |f|
     %p.sender_title
@@ -41,12 +43,11 @@
       = f.text_field :sender_zip4
       
     %p.privacy_options
-      = f.label :is_public, 'Privacy Options'
+      = f.label :privacy, 'Privacy Options'
       %span After sending, this letter will be viewable to:
-      = f.select :is_public, [['Public -- Anyone', 1], ['Friends -- MyOC Friends Only', 1], ['Private -- You Only', 0]]
+      = f.select :privacy, Formageddon::configuration.privacy_options
     
     %div.message_fields_wrapper
-      %h3 Begin typing here
       %div.message_fields
         = f.fields_for :formageddon_letters do |fl|
           %p.subject

@@ -39,9 +39,9 @@ module Formageddon
           letter.save
           
           @error_msg = 'Captcha Required'
-          puts "getting selector: #{formageddon_form.formageddon_form_captcha_image.css_selector}"
+          #puts "getting selector: #{formageddon_form.formageddon_form_captcha_image.css_selector}"
           captcha_node = browser.page.parser.css(formageddon_form.formageddon_form_captcha_image.css_selector).first
-          puts "captcha node: #{captcha_node.inspect}"
+          #puts "captcha node: #{captcha_node.inspect}"
           if captcha_node
             return browser.page.image_urls.select{ |ui| ui =~ /#{Regexp.escape(captcha_node.attributes['src'].value)}/ }.first
           end
@@ -53,7 +53,13 @@ module Formageddon
           ff = formageddon_form.formageddon_form_fields.select{|f| f.name == field.name }.first     
 
           if letter.kind_of? FormageddonLetter
-            field.value = letter.value_for(ff.value) unless ff.nil? or ff.not_changeable?
+            
+            if ff.value == 'email' and not Formageddon::configuration.reply_domain.nil?
+              field.value = "formageddon-#{letter.formageddon_thread.id}@#{Formageddon::configuration.reply_domain}"
+            else
+              field.value = letter.value_for(ff.value) unless ff.nil? or ff.not_changeable?
+            end
+            
           # Hashes are used in form building
           elsif letter.kind_of? Hash
             field.value = letter[ff.value]

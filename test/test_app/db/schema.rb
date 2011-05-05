@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110410234834) do
+ActiveRecord::Schema.define(:version => 20110505002453) do
 
   create_table "contactable_objects", :force => true do |t|
     t.string   "name"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20110410234834) do
     t.string   "sender_zip4"
     t.string   "sender_phone"
     t.string   "sender_email"
-    t.boolean  "is_public"
+    t.string   "privacy"
     t.integer  "formageddon_sender_id"
     t.string   "formageddon_sender_type"
     t.datetime "created_at"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20110410234834) do
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
-    t.string   "password_salt",                       :default => "",    :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
