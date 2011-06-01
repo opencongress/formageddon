@@ -5,6 +5,8 @@ module Formageddon
     attr_accessor :sender_user_mapping
     attr_accessor :reply_domain
     attr_accessor :privacy_options
+    attr_accessor :incoming_email_config
+    attr_accessor :tmp_captcha_dir
     
     def initialize
       @admin_check_filter = nil
@@ -12,6 +14,8 @@ module Formageddon
       @sender_user_mapping = {}
       @reply_domain = nil
       @privacy_options = []
+      @incoming_email_config = {}
+      @tmp_captcha_dir = nil
     end
   end
 

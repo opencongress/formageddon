@@ -9,25 +9,7 @@ module Formageddon
     def sender_full_name
       "#{sender_first_name} #{sender_last_name}"
     end
-    
-    # sends the most current unsent letter
-    def send_letter(browser)
-      letter = formageddon_letters.last
-      
-      if letter
-        recipient = letter.formageddon_thread.formageddon_recipient
-      
-        recipient.formageddon_contact_steps.each do |s|
-          error = s.execute(browser, :letter => letter)
-          return error unless error.nil?
-        end
-
-        return nil
-      else
-        return false
-      end
-    end
-    
+        
     def prepare(options)
       letter = formageddon_letters.build
 

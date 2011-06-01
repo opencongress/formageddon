@@ -1,6 +1,7 @@
 %h2 
   Contact
   = @formageddon_thread.formageddon_recipient
-  
-= render 'form', :thread => @formageddon_thread
+
+= form_for @formageddon_thread do |f|
+  = render 'form', :f => f, :thread => @formageddon_thread
   

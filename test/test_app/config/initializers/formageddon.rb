@@ -12,5 +12,13 @@ if defined? Formageddon
       ['Friends -- MyOC Friends Only', 'FRIENDS_ONLY'], 
       ['Private -- You Only', 'PRIVATE']
     ]
+    
+    config.incoming_email_config = {
+      'server' => 'mail.formageddon.nindy.com',
+      'username' => 'formageddon@formageddon.nindy.com',
+      'password' => 'donovan'
+    }
+    
+    config.tmp_captcha_dir = '/tmp/'
   end
 end

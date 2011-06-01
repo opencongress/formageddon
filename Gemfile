@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'haml'
-gem 'mechanize'
+gem 'mechanize', :git => 'git://github.com/tenderlove/mechanize.git'
+gem 'delayed_job'
 
 group :test do
   gem 'cucumber-rails'

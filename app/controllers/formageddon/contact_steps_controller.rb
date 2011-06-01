@@ -23,7 +23,7 @@ module Formageddon
       session[:formageddon_contact_step] = 1
       
       session[:formageddon_contact_steps] = []
-      session[:formageddon_temp_data] = []
+      session[:formageddon_temp_data] = []      
       
       @contact_step = FormageddonContactStep.new 
     end

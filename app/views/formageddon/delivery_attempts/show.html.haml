@@ -1,0 +1,8 @@
+- unless @captcha_letters.empty?
+  = form_tag(formageddon_formageddon_delivery_attempts_path, :method => 'post') do
+    = render :partial => 'captcha_form', :collection => @captcha_letters
+-else
+  - if @finished
+    Sent!
+  - else
+    Not finished.

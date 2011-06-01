@@ -10,16 +10,23 @@ if defined? Formageddon
     # sender_user_mapping -- Maps fields in the formageddon thread model to your
     #                        sender (usually user) model.
     config.sender_user_mapping = { :sender_email => :email }
-    
-    # reply_domain -- If not nil, will replace sender's email with a generated email address
-    #                 at the specified domain to receive replies.
-    config.reply_domain = nil
-    
+  
     # privacy_options -- List of options for users composing messages. The second element is the
     #                    string that will be stored in the DB.
     config.privacy_options = [
       ['Public', 'PUBLIC'], 
       ['Private', 'PRIVATE']
     ]
+    
+    # reply_domain -- If not nil, will replace sender's email with a generated email address
+    #                 at the specified domain to receive replies.
+    config.reply_domain = nil
+    config.incoming_email_config = {
+      'server' => '',
+      'username' => '',
+      'password' => ''
+    }
+    
+    config.tmp_captcha_dir = '/tmp/'
   end
 end

@@ -10,10 +10,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110505002453) do
+ActiveRecord::Schema.define(:version => 20110517184623) do
 
   create_table "contactable_objects", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "formageddon_browser_states", :force => true do |t|
+    t.text     "uri"
+    t.text     "cookie_jar"
+    t.text     "raw_html"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -23,6 +46,16 @@ ActiveRecord::Schema.define(:version => 20110505002453) do
     t.string  "formageddon_recipient_type"
     t.integer "step_number"
     t.string  "command"
+  end
+
+  create_table "formageddon_delivery_attempts", :force => true do |t|
+    t.integer  "formageddon_letter_id"
+    t.string   "result"
+    t.integer  "letter_contact_step"
+    t.text     "before_browser_state_id"
+    t.text     "after_browser_state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "formageddon_form_captcha_images", :force => true do |t|

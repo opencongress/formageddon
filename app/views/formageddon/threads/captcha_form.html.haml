@@ -1,7 +1,0 @@
-.formageddon_container
-  %h2 Spam Check Required
-  %p= "Contacting #{@formageddon_thread.formageddon_recipient} required a spam check.  Please enter the text from the image below."
-  
-  %img{ :src => @captcha_image }
-  %br
-  = text_field_tag :captcha_img
