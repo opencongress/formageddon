@@ -20,10 +20,14 @@ module Formageddon
     end
     
     def execute(browser, options = {})
-      raise "Browser is nil!" if browser.nil?
-      delivery_attempt = options[:delivery_attempt]
+      raise "Browser is nil!" if browser.nil? 
       
-      delivery_attempt.letter_contact_step = self.step_number unless delivery_attempt.nil?
+      save_states = options[:save_states].nil? ? true : options[:save_states]
+      
+      if save_states
+        delivery_attempt = options[:delivery_attempt]
+        delivery_attempt.letter_contact_step = self.step_number unless delivery_attempt.nil?
+      end
       
       case self.command
       when /^visit::/
@@ -31,17 +35,13 @@ module Formageddon
         
         begin
           browser.get(url)
+        rescue Timeout::Error
+          save_after_error($!, options[:letter], delivery_attempt, save_states)
+          
+          return false
         rescue 
-          @error_msg = "ERROR: #{$!}"
+          save_after_error($!, options[:letter], delivery_attempt, save_states)
           
-          unless options[:letter].nil?
-            letter = options[:letter]
-            letter.status = delivery_attempt.result = @error_msg
-            letter.save
-            delivery_attempt.save
-          end
-          
-          # save the browser state in the delivery attempt
           return false
         end
         
@@ -50,12 +50,16 @@ module Formageddon
         raise "Must submit :letter to execute!" if options[:letter].nil?
         letter = options[:letter]
         
-        delivery_attempt.save_before_browser_state(browser)
+        delivery_attempt.save_before_browser_state(browser) if save_states
         
         if formageddon_form.has_captcha? and letter.captcha_solution.nil?
-          letter.status = delivery_attempt.result = 'CAPTCHA_REQUIRED'
+          letter.status = 'CAPTCHA_REQUIRED'
           letter.save
-          delivery_attempt.save
+          
+          if save_states
+             delivery_attempt.result = 'CAPTCHA_REQUIRED'
+             delivery_attempt.save
+          end
           
           save_captcha_image(browser, letter)
           return false
@@ -77,6 +81,7 @@ module Formageddon
             
             # Hashes are used in form building
             elsif letter.kind_of? Hash
+              puts "FILLING #{field.name} with #{letter[ff.value]}"
               field.value = letter[ff.value]
             end
           end
@@ -84,46 +89,57 @@ module Formageddon
         
         begin
           form.submit
+        rescue Timeout::Error
+          save_after_error($!, options[:letter], delivery_attempt, save_states)
+
+          delivery_attempt.save_after_browser_state(browser) if save_states
+          
+          return false
         rescue 
-          @error_msg = "ERROR: #{$!}"
-          
-          letter.status = delivery_attempt.status = @error_msg
-          letter.save
-          delivery_attempt.save
-          
-          # save the browser state in the delivery attempt
-          delivery_attempt.save_after_browser_state(browser)
-          
+          save_after_error($!, options[:letter], delivery_attempt, save_states)
+
+          delivery_attempt.save_after_browser_state(browser) if save_states
+           
           return false
         end
         
+        #puts "Here's the browser: #{browser.page.parser.to_s}"
         
         if (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/).nil?
           puts "Here's the browser: #{browser.page.parser.to_s}"
           # save the browser state in the delivery attempt
-          delivery_attempt.save_after_browser_state(browser)
+          delivery_attempt.save_after_browser_state(browser) if save_states
           
           if letter.status == 'TRYING_CAPTCHA'
             # assume that the captcha was wrong?
             letter.status = 'CAPTCHA_REQUIRED'
             save_captcha_image(browser, letter)
             
-            delivery_attempt.result = 'CAPTCHA_WRONG'
-            delivery_attempt.save
+            if save_states
+              delivery_attempt.result = 'CAPTCHA_WRONG'
+              delivery_attempt.save
+            end
           else
-            letter.status = delivery_attempt.status = "WARNING: Confirmation message not found."
+            letter.status = "WARNING: Confirmation message not found."
+            
+            delivery_attempt.status = "WARNING: Confirmation message not found." if save_states
           end
           
           letter.save
-          delivery_attempt.save
+          delivery_attempt.save if save_states
           
           
           return false
         else
-          letter.status = 'SENT'
-          delivery_attempt.result = 'SUCCESS'
-          letter.save
-          delivery_attempt.save
+          if letter.kind_of? Formageddon::FormageddonLetter
+            letter.status = 'SENT'
+            letter.save
+          end
+          
+          if save_states
+            delivery_attempt.result = 'SUCCESS'
+            delivery_attempt.save
+          end
           
           return true
         end
@@ -146,6 +162,22 @@ module Formageddon
             file.write(resp.body)
            }
         }
+      end
+    end
+    
+    def save_after_error(ex, letter = nil, delivery_attempt = nil, save_states = true)
+      @error_msg = "ERROR: #{ex}"
+      
+      unless letter.nil?
+        if letter.kind_of? Formageddon::FormageddonLetter
+          letter.status = @error_msg
+          letter.save
+        end
+        
+        if save_states
+          delivery_attempt.result = @error_msg
+          delivery_attempt.save
+        end
       end
     end
   end

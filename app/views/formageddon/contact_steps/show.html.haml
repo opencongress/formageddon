@@ -8,10 +8,13 @@
       Submit the form with the following mapping:
       = render :partial => 'form_mapping', :object => step.formageddon_form
       %p
+        Will use field names:
+        %strong= step.formageddon_form.use_field_names? ? 'Yes' : 'No'
+      %p
         Look for the following message in the response:
         %strong= step.formageddon_form.success_string.blank? ? 'N/A' : step.formageddon_form.success_string
     - elsif step.command =~ /^visit/
       Go to the page:
-      = step.command.split(/::/)[1]
+      = link_to step.command.split(/::/)[1], step.command.split(/::/)[1]
 = link_to "Test sending to this recipient", :controller => 'formageddon/threads', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient.id, :recipient_type => @contact_steps.first.formageddon_recipient.class
 

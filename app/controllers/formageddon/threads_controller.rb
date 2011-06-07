@@ -75,6 +75,9 @@ module Formageddon
         letter_ids = threads.collect{|t| t.id}.join(',')
         redirect_to "#{params[:after_send_url]}&letter_ids=#{letter_ids}"
         return
+        #########
+        
+        
         
         session[:formageddon_after_send_url] = params[:after_send_url] unless params[:after_send_url].blank?
         

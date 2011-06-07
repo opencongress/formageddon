@@ -22,7 +22,11 @@ module Formageddon
         to_url = session[:formageddon_after_send_url]
         session[:formageddon_after_send_url] = nil
         
-        redirect_to "#{to_url}&letter_ids=#{letter_ids}"
+        if to_url =~ /\?/
+          redirect_to "#{to_url}&letter_ids=#{letter_ids}"
+        else
+          redirect_to "#{to_url}?letter_ids=#{letter_ids}"
+        end
       end
     end
     
