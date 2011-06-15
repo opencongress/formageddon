@@ -66,10 +66,14 @@ module Formageddon
         end
         
         form = browser.page.forms[formageddon_form.form_number]
-        form.fields.each do |field|
+        form.fields.each_with_index do |field, field_index|
           puts "TRYING FIELD: #{field.name}"
-          ff = formageddon_form.formageddon_form_fields.select{|f| f.name == field.name }.first     
-
+          if formageddon_form.use_field_names?
+            ff = formageddon_form.formageddon_form_fields.select{|f| f.name == field.name }.first     
+          else
+            ff = formageddon_form.formageddon_form_fields[field_index]
+          end
+          
           unless ff.nil?
             if letter.kind_of? FormageddonLetter
             

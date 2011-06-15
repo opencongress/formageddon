@@ -1,9 +1,9 @@
 module FormageddonHelper
   def predict_selection(page, input)
     case input.name
-    when 'textarea'
+    when /textarea/i
       return :message
-    when 'select'
+    when /select/i
       case input.attributes["name"].value + label_text_for(page, input)
       when /salutation/i, /prefix/i
         return :title
@@ -12,12 +12,12 @@ module FormageddonHelper
       when /topic/i, /subject/i
         return :issue_area
       end
-    when 'input'
+    when /input/i
       unless input.attributes['type'].nil?
         case input.attributes["type"].value
-        when 'image', 'submit'
+        when /image/i, /submit/i
           return :submit_button
-        when 'text'
+        when /text/i
           case input.attributes['name'].value + label_text_for(page, input)
           when /prefix/i
             return :title

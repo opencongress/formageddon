@@ -1,20 +1,28 @@
-%h2 Contact Webform Description
-%strong The form has been configured with the following settings:
+= render :partial => 'formageddon/shared/style'
 
-- @contact_steps.each do |step|
-  %div.form_step
-    %strong= "Step #{step.step_number}:"
-    - if step.command =~ /^submit_form/
-      Submit the form with the following mapping:
-      = render :partial => 'form_mapping', :object => step.formageddon_form
-      %p
-        Will use field names:
-        %strong= step.formageddon_form.use_field_names? ? 'Yes' : 'No'
-      %p
-        Look for the following message in the response:
-        %strong= step.formageddon_form.success_string.blank? ? 'N/A' : step.formageddon_form.success_string
-    - elsif step.command =~ /^visit/
-      Go to the page:
-      = link_to step.command.split(/::/)[1], step.command.split(/::/)[1]
-= link_to "Test sending to this recipient", :controller => 'formageddon/threads', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient.id, :recipient_type => @contact_steps.first.formageddon_recipient.class
+.formageddon_container
+  %h2 Contact Webform Description
+  %strong The form has been configured with the following settings:
+
+  - @contact_steps.each do |step|
+    %div.form_step
+      %strong= "Step #{step.step_number}: "
+      - if step.command =~ /^submit_form/
+        Submit the form with the following mapping:
+        (
+        = link_to 'Edit', :controller => 'formageddon/forms', :action => 'edit', :id => step.formageddon_form
+        )
+        = render :partial => 'form_mapping', :object => step.formageddon_form
+        %p
+          Will use field names:
+          %strong= step.formageddon_form.use_field_names? ? 'Yes' : 'No'
+        %p
+          Look for the following message in the response:
+          %strong= step.formageddon_form.success_string.blank? ? 'N/A' : step.formageddon_form.success_string
+      - elsif step.command =~ /^visit/
+        Go to the page:
+        = link_to step.command.split(/::/)[1], step.command.split(/::/)[1]
+  = link_to 'Re-build Steps', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient.id, :recipient_type => @contact_steps.first.formageddon_recipient.class
+  = " | "
+  = link_to "Test sending to this recipient", :controller => 'formageddon/threads', :action => 'new', :recipient_id => @contact_steps.first.formageddon_recipient.id, :recipient_type => @contact_steps.first.formageddon_recipient.class
 

@@ -1,0 +1,29 @@
+= render :partial => 'formageddon/shared/style'
+
+.formageddon_container
+  %h2 Formageddon: Edit Form Configuration
+  = form_for @formageddon_form do |form_form|
+    %p
+      = form_form.label :form_number, 'Form Index on page'
+      = form_form.text_field :form_number
+          
+    %table.form_builder
+      %tr
+        %th Field index
+        %th Field name
+        %th Link To
+      = form_form.fields_for :formageddon_form_fields do |field_form|
+        - puts "FIELD FORM: #{field_form.inspect}"
+        %tr
+          %td= field_form.text_field :field_number
+          %td= field_form.text_field :name
+          %td= field_form.select :value, options_for_select(Formageddon::FormageddonContactStep.contact_fields.map { |field| [field.to_s, field.to_s] }, field_form.object.value)
+    .use_field_names
+      = form_form.check_box :use_field_names
+      Use field names to submit forms? (uncheck this if the field names are dynamically generated)
+  
+    %p
+      What is a successful response (in English)?
+      = form_form.text_field :success_string
+    = form_form.submit 'Update Form Values'
+  

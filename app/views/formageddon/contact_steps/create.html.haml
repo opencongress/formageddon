@@ -1,72 +1,75 @@
-%h2 Formageddon: Select Form
-= "Found #{@page.forms.size} form(s) on this page:"
+= render :partial => 'formageddon/shared/style'
 
-- form_i = 0
-- @contact_steps.each do |contact_step|
-  - has_captcha = false
-  .contact_step_form
-    = form_for contact_step do |step_form|
-      = step_form.submit "Back To Previous Step", :name => "back_button", :id => 'back_button' unless session[:formageddon_contact_step] == 1
-      = step_form.hidden_field :command, :value => 'submit_form'
-      = step_form.fields_for :formageddon_form do |form_form|   
-        = form_form.hidden_field :form_number     
-        %table.form_builder
-          %tr
-            %th Field name
-            %th Label Text
-            %th Input Type
-            %th Link To
-          - field_i = 0
-          = form_form.fields_for :formageddon_form_fields do |field_form|
-            - unless @page.forms[form_i].fields[field_i].node.name == 'input' and @page.forms[form_i].fields[field_i].node.attributes['type'] and @page.forms[form_i].fields[field_i].node.attributes['type'].value == 'hidden'
-              %tr
-                %td
-                  = @page.forms[form_i].fields[field_i].name
-                  = field_form.hidden_field :name
-                  = field_form.hidden_field :field_number
-                %td= label_text_for(@page, @page.forms[form_i].fields[field_i].node)                  
-                %td= @page.forms[form_i].fields[field_i].node.name + (@page.forms[form_i].fields[field_i].node.name == 'input' ? ", #{@page.forms[form_i].fields[field_i].node.attributes['type']}" : "")
-                %td= field_form.select :value, options_for_select(Formageddon::FormageddonContactStep.contact_fields.map { |field| [field.to_s, field.to_s] }, predict_selection(@page, @page.forms[form_i].fields[field_i].node)), {}, :id => "field_value_select_#{form_i}_#{field_i}"
+.formageddon_container
+  %h2 Formageddon: Select Form
+  = "Found #{@page.forms.size} form(s) on this page:"
+
+  - form_i = 0
+  - @contact_steps.each do |contact_step|
+    - has_captcha = false
+    .contact_step_form
+      = form_for contact_step do |step_form|
+        = step_form.submit "Back To Previous Step", :name => "back_button", :id => 'back_button' unless session[:formageddon_contact_step] == 1
+        = step_form.hidden_field :command, :value => 'submit_form'
+        = step_form.fields_for :formageddon_form do |form_form|   
+          = form_form.hidden_field :form_number     
+          %table.form_builder
+            %tr
+              %th Field name
+              %th Label Text
+              %th Input Type
+              %th Link To
+            - field_i = 0
+            = form_form.fields_for :formageddon_form_fields do |field_form|
+              - unless @page.forms[form_i].fields[field_i].node.name == 'input' and @page.forms[form_i].fields[field_i].node.attributes['type'] and @page.forms[form_i].fields[field_i].node.attributes['type'].value == 'hidden'
+                %tr
+                  %td
+                    = @page.forms[form_i].fields[field_i].name
+                    = field_form.hidden_field :name
+                    = field_form.hidden_field :field_number
+                  %td= label_text_for(@page, @page.forms[form_i].fields[field_i].node)                  
+                  %td= @page.forms[form_i].fields[field_i].node.name + (@page.forms[form_i].fields[field_i].node.name == 'input' ? ", #{@page.forms[form_i].fields[field_i].node.attributes['type']}" : "")
+                  %td= field_form.select :value, options_for_select(Formageddon::FormageddonContactStep.contact_fields.map { |field| [field.to_s, field.to_s] }, predict_selection(@page, @page.forms[form_i].fields[field_i].node)), {}, :id => "field_value_select_#{form_i}_#{field_i}"
+                  :javascript
+                    $('field_value_select_#{form_i}_#{field_i}').observe('change', function() {
+                      if (this.value == 'captcha_solution') {
+                        $('captcha_select_#{form_i}').show();
+                      }
+                    });
+                  - has_captcha = has_captcha || predict_selection(@page, @page.forms[form_i].fields[field_i].node) == :captcha_solution
+              - field_i += 1
+          %div{ :id => "captcha_select_#{form_i}", :style => has_captcha ? "" : "display: none;" }
+            %p
+              %strong Select which image represents the CAPTCHA challenge:
+            - image_i = 0
+            = form_form.fields_for :formageddon_form_captcha_image do |image_form|
+              = image_form.hidden_field :image_number, :id => "captcha_image_number_hidden_#{form_i}"
+              = image_form.hidden_field :css_selector, :id => "captcha_css_selector_hidden_#{form_i}"
+            - @form_imgs[form_i].each_with_index do |img, img_i|
+              .form_img
+                %img{ :src => @page.image_urls.select{ |iu| iu =~ /#{Regexp.escape(img.attributes['src'].value)}/}.first }
+                = radio_button_tag :captcha_image_select, img_i
                 :javascript
-                  $('field_value_select_#{form_i}_#{field_i}').observe('change', function() {
-                    if (this.value == 'captcha_solution') {
-                      $('captcha_select_#{form_i}').show();
-                    }
+                  $('captcha_image_select_#{img_i}').observe('click', function() {
+                    $('captcha_image_number_hidden_#{form_i}').value = '#{img_i}';
+                    $('captcha_css_selector_hidden_#{form_i}').value = '#{img.css_path}';
                   });
-                - has_captcha = has_captcha || predict_selection(@page, @page.forms[form_i].fields[field_i].node) == :captcha_solution
-            - field_i += 1
-        %div{ :id => "captcha_select_#{form_i}", :style => has_captcha ? "" : "display: none;" }
-          %p
-            %strong Select which image represents the CAPTCHA challenge:
-          - image_i = 0
-          = form_form.fields_for :formageddon_form_captcha_image do |image_form|
-            = image_form.hidden_field :image_number, :id => "captcha_image_number_hidden_#{form_i}"
-            = image_form.hidden_field :css_selector, :id => "captcha_css_selector_hidden_#{form_i}"
-          - @form_imgs[form_i].each_with_index do |img, img_i|
-            .form_img
-              %img{ :src => @page.image_urls.select{ |iu| iu =~ /#{Regexp.escape(img.attributes['src'].value)}/}.first }
-              = radio_button_tag :captcha_image_select, img_i
-              :javascript
-                $('captcha_image_select_#{img_i}').observe('click', function() {
-                  $('captcha_image_number_hidden_#{form_i}').value = '#{img_i}';
-                  $('captcha_css_selector_hidden_#{form_i}').value = '#{img.css_path}';
-                });
-        .use_field_names
-          = form_form.check_box :use_field_names, :checked => 'checked'
-          Use field names to submit forms? (uncheck this if the field names are dynamically generated)
-        %br
-        Does this form have an additional step?
-        = radio_button_tag "next_step", "true", false, :id => "next_radio_true_#{form_i}"
-        Yes
-        = radio_button_tag "next_step", "false", true, :id => "next_radio_false_#{form_i}"
-        No
+          .use_field_names
+            = form_form.check_box :use_field_names, :checked => 'checked'
+            Use field names to submit forms? (uncheck this if the field names are dynamically generated)
+          %br
+          Does this form have an additional step?
+          = radio_button_tag "next_step", "true", false, :id => "next_radio_true_#{form_i}"
+          Yes
+          = radio_button_tag "next_step", "false", true, :id => "next_radio_false_#{form_i}"
+          No
         
-        %div{ :id => "success_string_#{form_i}"}
-          What is a successful response (in English)?
-          = form_form.text_field :success_string
-      %br
-      = step_form.submit "Use This Form"
-      = render 'next_step_data_form', :form_i => form_i
+          %div{ :id => "success_string_#{form_i}"}
+            What is a successful response (in English)?
+            = form_form.text_field :success_string
+        %br
+        = step_form.submit "Use This Form"
+        = render 'next_step_data_form', :form_i => form_i
 
-  - form_i += 1
+    - form_i += 1
 

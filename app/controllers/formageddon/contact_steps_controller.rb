@@ -4,8 +4,6 @@ module Formageddon
     
     before_filter :admin_check
     
-    layout 'formageddon'
-    
     def new
       if params[:recipient_id].nil? or params[:recipient_type].nil?
         flash[:error] = "You must specify a recipient id and type to build steps!"
@@ -89,6 +87,10 @@ module Formageddon
     
     def index
       @contact_steps_grouped = FormageddonContactStep.select('formageddon_recipient_id, formageddon_recipient_type').group('formageddon_recipient_id, formageddon_recipient_type')
+
+      unless params[:sort].blank?
+        @contact_steps_grouped.sort!{|a,b| a.formageddon_recipient.send(params[:sort]) <=> b.formageddon_recipient.send(params[:sort])}
+      end
     end
     
     def destroy

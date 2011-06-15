@@ -1,21 +1,24 @@
-%h2 Formageddon: Recipients With Configured Forms
+= render :partial => 'formageddon/shared/style'
 
-- if @contact_steps_grouped.empty?
-  You have not configured any recipients with Formageddon.
-- else
-  %table.contact_steps_list
-    %tr
-      %th Recipient
-      %th Number of steps
-      %th Actions
-    - @contact_steps_grouped.each do |s|
+.formageddon_container
+  %h2 Formageddon: Recipients With Configured Forms
+
+  - if @contact_steps_grouped.empty?
+    You have not configured any recipients with Formageddon.
+  - else
+    %table.contact_steps_list
       %tr
-        %td= s.formageddon_recipient
-        %td= s.formageddon_recipient.formageddon_contact_steps.size
-        %td
-          = link_to 'View Steps', :action => 'show', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class
-          \|
-          = link_to 'Re-build Steps', :action => 'new', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class
-          \|
-          = link_to 'Clear Steps', { :action => 'destroy', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class }, :method => :delete
+        %th Recipient
+        %th Number of steps
+        %th Actions
+      - @contact_steps_grouped.each do |s|
+        %tr
+          %td= s.formageddon_recipient
+          %td= s.formageddon_recipient.formageddon_contact_steps.size
+          %td
+            = link_to 'View Steps', :action => 'show', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class
+            \|
+            = link_to 'Re-build Steps', :action => 'new', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class
+            \|
+            = link_to 'Clear Steps', { :action => 'destroy', :recipient_id => s.formageddon_recipient.id, :recipient_type => s.formageddon_recipient.class }, :method => :delete
   
