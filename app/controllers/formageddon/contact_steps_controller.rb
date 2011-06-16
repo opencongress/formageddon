@@ -51,7 +51,7 @@ module Formageddon
         
         # execute all the steps to get here
         session[:formageddon_contact_steps].each_with_index do |step, step_i|
-          step.execute(browser, :letter => session[:formageddon_temp_data][step_i])        
+          step.execute(browser, { :letter => session[:formageddon_temp_data][step_i], :save_states => false })        
         end
         
         @page = browser.page
