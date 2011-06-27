@@ -8,10 +8,11 @@
 %p.sender_zip5
   = f.label :sender_zip5, label_for(:sender_zip5)
   = f.text_field :sender_zip5, :maxlength => 5
-  
-%p.sender_zip4
-  = f.label :sender_zip4, label_for(:sender_zip4)
-  = f.text_field :sender_zip4, :maxlength => 4
+
+/  
+  %p.sender_zip4
+    = f.label :sender_zip4, label_for(:sender_zip4)
+= f.hidden_field :sender_zip4
 
 %p.sender_title
   = f.label :sender_title, label_for(:sender_title)

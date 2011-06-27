@@ -13,39 +13,37 @@ module FormageddonHelper
         return :issue_area
       end
     when /input/i
-      unless input.attributes['type'].nil?
-        case input.attributes["type"].value
-        when /image/i, /submit/i
-          return :submit_button
-        when /text/i
-          case input.attributes['name'].value + label_text_for(page, input)
-          when /prefix/i
-            return :title
-          when /subject/i
-            return :subject
-          when /captcha/i
-            return :captcha_solution
-          when /email/i
-            return :email
-          when /phone/i
-            return :phone
-          when /zip4/i, /zipplus4/i, /plusfour/i, /zipfour/i
-            return :zip4
-          when /zipcode/i, /zip/i
-            return :zip5
-          when /city/i
-            return :city
-          when /state/i
-            return :state
-          when /address2/i, /address 2/i, /address_2/i, /street2/i
-            return :address2
-          when /address/i, /address 1/i, /street/i
-            return :address1
-          when /firstname/i, /first name/i, /first_name/i, /fname/i, /first/i
-            return :first_name
-          when /lastname/i, /last name/i, /last_name/i, /lname/i, /lname/i, /last/i
-            return :last_name
-          end
+      if !input.attributes['type'].nil? &&
+         (input.attributes['type'] =~ /image/i or input.attributes['type'] =~ /submit/i)
+         return :submit_button
+      else
+        case input.attributes['name'].value + label_text_for(page, input)
+        when /prefix/i
+          return :title
+        when /subject/i
+          return :subject
+        when /captcha/i
+          return :captcha_solution
+        when /email/i
+          return :email
+        when /phone/i
+          return :phone
+        when /zip4/i, /zipplus4/i, /plusfour/i, /zipfour/i
+          return :zip4
+        when /zipcode/i, /zip/i
+          return :zip5
+        when /city/i
+          return :city
+        when /state/i
+          return :state
+        when /address2/i, /address 2/i, /address_2/i, /street2/i
+          return :address2
+        when /address/i, /address 1/i, /street/i
+          return :address1
+        when /firstname/i, /first name/i, /first_name/i, /fname/i, /first/i
+          return :first_name
+        when /lastname/i, /last name/i, /last_name/i, /lname/i, /lname/i, /last/i
+          return :last_name
         end
       end
     end
