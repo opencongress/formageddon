@@ -1,0 +1,10 @@
+<% if @formageddon_thread and @formageddon_thread.errors.any? %>
+  $j('#formageddon_modal').html("<%= escape_javascript(render :partial => 'validation_errors', :locals => { :thread => @formageddon_thread}) %>");
+  $j('#formageddon_hide_modal').click(function() {
+    $j('#formageddon_modal').jqmHide();
+    $j('#formageddon_modal').html("<%= escape_javascript(render :partial => 'contact_congress_letters/sending_spinner') %>");
+    return false;
+  });
+<% elsif @redirect %>
+  $j(window.location).attr('href', '<%= @redirect %>');
+<% end %>

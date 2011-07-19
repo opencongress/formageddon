@@ -33,7 +33,8 @@ module Formageddon
     end
 
     def create
-      multi_recipients = params[:formageddon_multi_recipients]
+      formageddon_params = params[:formageddon]
+      multi_recipients = formageddon_params[:formageddon_multi_recipients]
       
       threads = []
       
@@ -59,31 +60,58 @@ module Formageddon
       end
       
       if passed_validation
-        threads.each do |t|
-          
-          t.formageddon_letters.first.update_attribute(:status, 'START')
-          t.formageddon_letters.first.update_attribute(:direction, 'TO_RECIPIENT')
-        
-          #if defined? Delayed
-          # t.formageddon_letters.first.delay.send_letter
-          #else
-          #  t.formageddon_letters.first.send_letter
-          #end
+        # check to see if there is a no sender URL. this means a sender is required
+        unless formageddon_params[:no_sender_redirect].blank?
+          if threads.first.formageddon_sender.nil?
+            # we need to save the letter ids in the session and redirect
+            session[:formageddon_unsent_threads] = threads.map{|t| t.id }
+            session[:formageddon_params] = formageddon_params
+            
+            respond_to do |format|
+              format.html { redirect_to formageddon_params[:no_sender_redirect] }
+              format.js { @redirect = formageddon_params[:no_sender_redirect] } 
+            end
+            
+            return
+          end
         end
         
-        ## just for morgan to style!!
+        threads.each do |t|
+          ############### t.formageddon_letters.first.update_attribute(:status, 'START')
+          t.formageddon_letters.first.update_attribute(:status, 'SENT')
+          t.formageddon_letters.first.update_attribute(:direction, 'TO_RECIPIENT')
+        
+          #######if defined? Delayed
+          #######  t.formageddon_letters.first.delay.send_letter
+          #######else
+            t.formageddon_letters.first.send_letter
+          #######end
+        end
+        
         letter_ids = threads.collect{|t| t.id}.join(',')
-        redirect_to "#{params[:after_send_url]}&letter_ids=#{letter_ids}"
-        return
+                
+        session[:formageddon_after_send_url] = "#{formageddon_params[:after_send_url]}&letter_ids=#{letter_ids}" unless formageddon_params[:after_send_url].blank?
+        
+        
         #########
+        redirect_to "#{formageddon_params[:after_send_url]}&letter_ids=#{letter_ids}"
+        return
+        ##########
         
         
+        respond_to do |format|
+          format.html {
+            redirect_to :controller => 'delivery_attempts', :action => 'show', 
+                        :letter_ids => letter_ids
+          }
+          format.js {
+            redirect_to :controller => 'delivery_attempts', :action => 'show', :format => 'js', 
+                        :letter_ids => letter_ids
+          }
+        end
         
-        session[:formageddon_after_send_url] = params[:after_send_url] unless params[:after_send_url].blank?
-        
-        redirect_to :controller => 'delivery_attempts', :action => 'show', 
-                    :letter_ids => threads.collect{|t| t.formageddon_letters.first.id }.join(',')   
       else
+        @formageddon_thread = threads.first
       end
     end
     

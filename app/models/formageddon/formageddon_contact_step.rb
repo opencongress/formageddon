@@ -107,10 +107,21 @@ module Formageddon
           return false
         end
         
-        #puts "Here's the browser: #{browser.page.parser.to_s}"
-        
-        if (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/).nil?
-          puts "Here's the browser: #{browser.page.parser.to_s}"
+        if formageddon_form.success_string.blank?
+          if letter.kind_of? Formageddon::FormageddonLetter
+            letter.status = 'WARNING: Confirmation message is blank. Unable to confirm delivery.'
+            letter.save
+          end
+          
+          if save_states
+            delivery_attempt.save_after_browser_state(browser)
+
+            delivery_attempt.result = 'WARNING: Confirmation message is blank. Unable to confirm delivery.'
+            delivery_attempt.save            
+          end
+          
+          return true
+        elsif (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/).nil?
           # save the browser state in the delivery attempt
           delivery_attempt.save_after_browser_state(browser) if save_states
           
@@ -143,6 +154,9 @@ module Formageddon
           if save_states
             delivery_attempt.result = 'SUCCESS'
             delivery_attempt.save
+            
+            # save on success for now, just in case we start getting false positives here
+            delivery_attempt.save_after_browser_state(browser)
           end
           
           return true

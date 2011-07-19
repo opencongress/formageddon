@@ -6,6 +6,13 @@ module Formageddon
     
     accepts_nested_attributes_for :formageddon_letters
     
+    validates_presence_of :sender_first_name, :message => "First name can't be blank."
+    validates_presence_of :sender_last_name, :message => "Last name can't be blank."
+    validates_presence_of :sender_address1, :message => "Address can't be blank."
+    validates_presence_of :sender_email, :message => "Email address can't be blank."
+    validates_presence_of :sender_city, :message => "City can't be blank."
+    validates_presence_of :sender_zip5, :message => "Zip can't be blank."
+    
     def sender_full_name
       "#{sender_first_name} #{sender_last_name}"
     end
@@ -32,6 +39,14 @@ module Formageddon
       if options[:message]
         letter.message = options[:message]
       end
+    end
+    
+    def first_subject
+      formageddon_letters.any? ? formageddon_letters.first.subject : nil
+    end
+
+    def first_message
+      formageddon_letters.any? ? formageddon_letters.first.message : nil
     end
   end
 end

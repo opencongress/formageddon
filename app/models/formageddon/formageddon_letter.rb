@@ -5,9 +5,17 @@ module Formageddon
     
     attr_accessor :captcha_solution
     
+    validates_presence_of :subject, :message => "You must enter a letter subject."
+    validates_presence_of :message, :message => "You must enter some content in your message."
+    
     def send_letter(options = {})
-      puts "SENDING LETTER"
       recipient = formageddon_thread.formageddon_recipient
+      
+      if recipient.nil? or recipient.formageddon_contact_steps.empty?
+        self.status = 'ERROR: Recipient not configured for message delivery!'
+        self.save
+        return false
+      end
       
       browser = Mechanize.new
       

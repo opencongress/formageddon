@@ -1,5 +1,5 @@
 module Formageddon
-  class ContactStepsController < ApplicationController
+  class ContactStepsController < FormageddonController
     unloadable
     
     before_filter :admin_check
@@ -106,27 +106,6 @@ module Formageddon
       
       flash[:notice] = "Configuration deleted for #{recipient}"
       redirect_to :action => 'index'
-    end
-    
-    
-    
-    protected
-
-    def admin_check
-      if Formageddon::configuration.admin_check_filter.nil?
-        # automatically reject
-        flash[:notice] = "Access denied."
-        redirect_to '/'
-        return
-      else
-        case Formageddon::configuration.admin_check_filter
-        when String
-        when Symbol
-          self.send(Formageddon::configuration.admin_check_filter)
-        when Proc
-          Formageddon::configuration.admin_check_filter.call
-        end
-      end
     end
     
   end

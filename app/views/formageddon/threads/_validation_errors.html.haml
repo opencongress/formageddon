@@ -1,0 +1,6 @@
+%h3.error We could not send your letter yet!
+%p Please fix the following errors and we'll send your letter:
+%ul.errors
+  - @formageddon_thread.errors.values.each do |e|
+    %li= e
+%a.button.silver.medium#formageddon_hide_modal{ :href => '#' } Close

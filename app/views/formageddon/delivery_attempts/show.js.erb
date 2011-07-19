@@ -1,0 +1,20 @@
+<% unless @captcha_letters.empty? %>
+    $j('#formageddon_modal').html("<%= escape_javascript(render :partial => 'formageddon/delivery_attempts/captchas', :locals => { :captcha_letters => @captcha_letters }) %>");
+    $j('#formageddon_captchas_form').submit(function() {
+      $j('#formageddon_modal').html("<%= escape_javascript(render :partial => 'contact_congress_letters/sending_spinner') %>");
+      return true;
+    });
+<% else %>
+  <% if @finished %>
+    $j(window.location).attr('href', '<%= @to_url %>');
+  <% else %>  
+    // check status again after two seconds
+    $j(document).ready(function() {
+      setTimeout(function() {
+        $j.ajax({
+          url: '<%= url_for :controller => "delivery_attempts", :action => "show", :format => "js", :letter_ids => params[:letter_ids] %>'
+        });
+      }, 2000);
+    });
+  <% end %>
+<% end %>

@@ -1,5 +1,5 @@
 class Mechanize
-  # this is a extended method to rebuild the browser state from the database
+  # this is an extended method to rebuild the browser state from the database
   def rebuild_page(url, cookie_jar, body)
     # cookie jar is assumed to be serialized into YAML
     self.cookie_jar = YAML.load(cookie_jar)

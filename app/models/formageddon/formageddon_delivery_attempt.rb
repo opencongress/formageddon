@@ -39,5 +39,9 @@ module Formageddon
 
       browser
     end
+    
+    def to_s
+      result
+    end
   end
 end

@@ -1,0 +1,11 @@
+%h3 Spam Check Required
+
+= form_tag(formageddon_formageddon_delivery_attempts_path, :method => 'post', :remote => true, :id => 'formageddon_captchas_form') do
+  = render :partial => 'captcha_form', :collection => captcha_letters
+  
+  = hidden_field_tag 'letter_ids', params[:letter_ids]
+  
+  = submit_tag 'Submit', :name => 'submit', :class => 'button silver medium', :id => 'formageddon_captchas_submit'
+  
+
+  

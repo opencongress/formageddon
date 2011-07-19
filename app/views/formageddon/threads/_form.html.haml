@@ -1,9 +1,11 @@
 - after_send_url ||= nil
+- no_sender_redirect ||= nil
 - multi_recipients ||= []
+- custom_params ||= {}
 
 
 - multi_recipients.each do |r|
-  = hidden_field "recipient_types[#{r.id}]", :value => r.class.to_s
+  = hidden_field_tag "formageddon[formageddon_multi_recipients[#{r.id}]]", r.class.to_s
   
 %p.sender_zip5
   = f.label :sender_zip5, label_for(:sender_zip5)
@@ -63,10 +65,14 @@
         = fl.text_area :message
 
 - if thread.formageddon_recipient_id && thread.formageddon_recipient_type
-  = f.hidden_field :formageddon_recipient_id
-  = f.hidden_field :formageddon_recipient_type
+  = f.hidden_field 'formageddon[formageddon_recipient_id]'
+  = f.hidden_field 'formageddon[formageddon_recipient_type]'
 
-= hidden_field_tag :after_send_url, after_send_url
+= hidden_field_tag 'formageddon[after_send_url]', after_send_url
+= hidden_field_tag 'formageddon[no_sender_redirect]', no_sender_redirect
+
+- custom_params.keys.each do |p|
+  = hidden_field_tag "formageddon[#{p}]", custom_params[p]
 
 = f.submit "Send Message", :class => 'formageddon_submit'
 
