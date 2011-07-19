@@ -84,20 +84,13 @@ module Formageddon
           #######if defined? Delayed
           #######  t.formageddon_letters.first.delay.send_letter
           #######else
-            t.formageddon_letters.first.send_letter
+          #######  t.formageddon_letters.first.send_letter
           #######end
         end
         
         letter_ids = threads.collect{|t| t.id}.join(',')
                 
         session[:formageddon_after_send_url] = "#{formageddon_params[:after_send_url]}&letter_ids=#{letter_ids}" unless formageddon_params[:after_send_url].blank?
-        
-        
-        #########
-        redirect_to "#{formageddon_params[:after_send_url]}&letter_ids=#{letter_ids}"
-        return
-        ##########
-        
         
         respond_to do |format|
           format.html {
