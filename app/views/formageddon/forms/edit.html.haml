@@ -1,7 +1,8 @@
 = render :partial => 'formageddon/shared/style'
 
 .formageddon_container
-  %h2 Formageddon: Edit Form Configuration
+  %h2 Formageddon: Edit Form Configuration (#{@formageddon_form.formageddon_contact_step.formageddon_recipient}, Step #{@formageddon_form.formageddon_contact_step.step_number})
+  
   = form_for @formageddon_form do |form_form|
     %p
       = form_form.label :form_number, 'Form Index on page'
