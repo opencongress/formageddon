@@ -62,7 +62,13 @@ module Formageddon
                delivery_attempt.save
             end
           
-            save_captcha_image(browser, letter)
+            begin
+              save_captcha_image(browser, letter)
+            rescue Timeout::Error
+              save_after_error("Saving captcha: #{$!}", options[:letter], delivery_attempt, save_states)
+
+              delivery_attempt.save_after_browser_state(browser) if save_states
+            end
             return false
           end
         
