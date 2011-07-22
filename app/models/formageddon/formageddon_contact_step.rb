@@ -137,7 +137,7 @@ module Formageddon
           else
             letter.status = "WARNING: Confirmation message not found."
             
-            delivery_attempt.status = "WARNING: Confirmation message not found." if save_states
+            delivery_attempt.result = "WARNING: Confirmation message not found." if save_states
           end
           
           letter.save
