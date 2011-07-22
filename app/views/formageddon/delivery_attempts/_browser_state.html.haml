@@ -1,6 +1,16 @@
 .browser_state
   %h4= browser_state.uri
   
+  .text
+    %strong All text on the page
+    %br
+    %br
+    = browser_state.raw_html.gsub(/<\/?[^>]*>/, " ").html_safe
+    
   .html
+    %br
+    %strong Full HTML
+    %br
+    %br
     = browser_state.raw_html
     
