@@ -5,7 +5,7 @@
     %strong All text on the page
     %br
     %br
-    = browser_state.raw_html.gsub(/<\/?[^>]*>/, " ").html_safe
+    = Nokogiri::HTML(browser_state.raw_html).css('body').first.inner_html.gsub(/<\/?[^>]*>/, " ").html_safe
     
   .html
     %br
