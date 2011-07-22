@@ -67,6 +67,9 @@ module Formageddon
           end
         
           form = browser.page.forms[formageddon_form.form_number]
+          
+          raise "Form is nil! Problem with config?" if form.nil?
+          
           form.fields.each_with_index do |field, field_index|
             puts "TRYING FIELD: #{field.name}"
             if formageddon_form.use_field_names?
