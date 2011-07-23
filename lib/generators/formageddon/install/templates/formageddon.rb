@@ -28,5 +28,7 @@ if defined? Formageddon
     }
     
     config.tmp_captcha_dir = '/tmp/'
+    
+    config.default_params = {}
   end
 end

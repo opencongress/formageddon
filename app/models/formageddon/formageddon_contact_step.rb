@@ -101,6 +101,14 @@ module Formageddon
             end
           end
         
+          # check to see if there are any default params to force
+          unless Formageddon::configuration.default_params.empty?
+            Formageddon::configuration.default_params.keys.each do |k|
+              field = form.field_with(:name => k)
+              field.value = Formageddon::configuration.default_params[k]
+            end
+          end
+        
           begin
             form.submit
           rescue Timeout::Error
