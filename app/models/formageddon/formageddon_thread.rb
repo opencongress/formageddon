@@ -5,6 +5,8 @@ module Formageddon
     has_many :formageddon_letters, :order => 'created_at ASC'
     
     accepts_nested_attributes_for :formageddon_letters
+
+    validates_presence_of :formageddon_recipient_id, :message => "You must choose a recipient."
     
     validates_presence_of :sender_first_name, :message => "First name can't be blank."
     validates_presence_of :sender_last_name, :message => "Last name can't be blank."

@@ -9,6 +9,8 @@ module FormageddonHelper
         return :title
       when /state/i
         return :state
+      when /response/i
+        return :get_response
       when /topic/i, /subject/i
         return :issue_area
       end

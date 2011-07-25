@@ -27,7 +27,7 @@
                     = @page.forms[form_i].fields[field_i].name
                     = field_form.hidden_field :name
                     = field_form.hidden_field :field_number
-                  %td= label_text_for(@page, @page.forms[form_i].fields[field_i].node)                  
+                  %td.label_text= label_text_for(@page, @page.forms[form_i].fields[field_i].node)                  
                   %td= @page.forms[form_i].fields[field_i].node.name + (@page.forms[form_i].fields[field_i].node.name == 'input' ? ", #{@page.forms[form_i].fields[field_i].node.attributes['type']}" : "")
                   %td= field_form.select :value, options_for_select(Formageddon::FormageddonContactStep.contact_fields.map { |field| [field.to_s, field.to_s] }, predict_selection(@page, @page.forms[form_i].fields[field_i].node)), {}, :id => "field_value_select_#{form_i}_#{field_i}"
                   :javascript

@@ -89,6 +89,10 @@ module Formageddon
             
                 if ff.value == 'email' and not Formageddon::configuration.reply_domain.nil?
                   field.value = "formageddon+#{letter.formageddon_thread.id}@#{Formageddon::configuration.reply_domain}"
+                elsif ff.value == 'get_response'
+                  field.value = 'Yes'
+                elsif ff.value == 'issue_area'
+                  field.value = 'Other'
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
                 end

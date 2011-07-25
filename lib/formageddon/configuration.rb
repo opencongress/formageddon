@@ -7,6 +7,7 @@ module Formageddon
     attr_accessor :privacy_options
     attr_accessor :incoming_email_config
     attr_accessor :tmp_captcha_dir
+    attr_accessor :default_params
     
     def initialize
       @admin_check_filter = nil
@@ -16,6 +17,7 @@ module Formageddon
       @privacy_options = []
       @incoming_email_config = {}
       @tmp_captcha_dir = nil
+      @default_params = {}
     end
   end
 
