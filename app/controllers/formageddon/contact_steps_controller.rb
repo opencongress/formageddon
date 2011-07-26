@@ -38,11 +38,13 @@ module Formageddon
         @contact_step.formageddon_recipient_id = session[:formageddon_recipient_id]
         @contact_step.formageddon_recipient_type = session[:formageddon_recipient_type]
         @contact_step.step_number = session[:formageddon_contact_step]
+        @contact_step.save
       end
       
       # check validity?
       
-      session[:formageddon_contact_steps][session[:formageddon_contact_step]-1] = @contact_step
+      
+      session[:formageddon_contact_steps][session[:formageddon_contact_step]-1] = @contact_step.id
       session[:formageddon_temp_data][session[:formageddon_contact_step]-1] = params[:formageddon_temp_data]
       session[:formageddon_contact_step] += 1
       
@@ -50,7 +52,8 @@ module Formageddon
         browser = Mechanize.new
         
         # execute all the steps to get here
-        session[:formageddon_contact_steps].each_with_index do |step, step_i|
+        session[:formageddon_contact_steps].each_with_index do |step_id, step_i|
+          step = FormageddonContactStep.find(step_id)
           step.execute(browser, { :letter => session[:formageddon_temp_data][step_i], :save_states => false })        
         end
         
@@ -69,7 +72,7 @@ module Formageddon
           @contact_steps << contact_step
         end
       else
-        session[:formageddon_contact_steps].each { |s| s.save }
+        #session[:formageddon_contact_steps].each { |s| s.save }
                 
         redirect_to :controller => 'contact_steps', :action => 'show', :recipient_id => session[:formageddon_recipient_id], :recipient_type => session[:formageddon_recipient_type]
         
