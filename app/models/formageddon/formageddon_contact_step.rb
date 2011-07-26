@@ -8,7 +8,7 @@ module Formageddon
     attr_accessor :error_msg, :captcha_image
     
     @@contact_fields = [ 
-      :title, :first_name, :last_name, :email, :address1, :address2, :zip5, :zip4, :city, :state, :state_house               
+      :title, :first_name, :last_name, :email, :address1, :address2, :zip5, :zip4, :city, :state, :state_house,               
       :phone, :issue_area, :subject, :message, :submit_button, :leave_blank, :captcha_solution
     ]
     def self.contact_fields
