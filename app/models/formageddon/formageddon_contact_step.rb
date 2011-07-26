@@ -109,7 +109,9 @@ module Formageddon
           unless Formageddon::configuration.default_params.empty?
             Formageddon::configuration.default_params.keys.each do |k|
               field = form.field_with(:name => k)
-              field.value = Formageddon::configuration.default_params[k]
+              if field
+                field.value = Formageddon::configuration.default_params[k]
+              end
             end
           end
         
