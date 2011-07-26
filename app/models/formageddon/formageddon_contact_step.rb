@@ -22,6 +22,8 @@ module Formageddon
     def execute(browser, options = {})
       raise "Browser is nil!" if browser.nil? 
       
+      Rails.logger.debug "Executing Contact Step ##{self.step_number} for #{self.formageddon_recipient}..."
+      
       begin
         save_states = options[:save_states].nil? ? true : options[:save_states]
       
@@ -77,7 +79,6 @@ module Formageddon
           raise "Form is nil! Problem with config?" if form.nil?
           
           form.fields.each_with_index do |field, field_index|
-            puts "TRYING FIELD: #{field.name}"
             if formageddon_form.use_field_names?
               ff = formageddon_form.formageddon_form_fields.select{|f| f.name == field.name }.first     
             else
