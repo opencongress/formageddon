@@ -8,7 +8,7 @@ module Formageddon
     attr_accessor :error_msg, :captcha_image
     
     @@contact_fields = [ 
-      :title, :first_name, :last_name, :email, :address1, :address2, :zip5, :zip4, :city, :state,                
+      :title, :first_name, :last_name, :email, :address1, :address2, :zip5, :zip4, :city, :state, :state_house               
       :phone, :issue_area, :subject, :message, :submit_button, :leave_blank, :captcha_solution
     ]
     def self.contact_fields
@@ -94,6 +94,10 @@ module Formageddon
                   field.value = 'Yes'
                 elsif ff.value == 'issue_area'
                   field.value = 'Other'
+                elsif ff.value == 'state_house'
+                  state = State.find_by_abbreviation(letter.value_for('state'))
+                  
+                  field.value = "#{state.abbreviaion}#{state.name}"
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
                 end
