@@ -2,9 +2,15 @@ module Formageddon
   class IncomingEmailFetcher
     require 'net/pop'
 
-    def self.fetch
-      puts "Running Mail Importer..." 
-      Net::POP3.start(Formageddon::configuration.incoming_email_config['server'], nil, 
+    def self.fetch(ssl = true)
+      puts "Running Mail Importer..."
+      port = nil
+      if ssl
+        port = 995
+        Net::POP3.enable_ssl(OpenSSL::SSL::VERIFY_NONE)
+      end
+      
+      Net::POP3.start(Formageddon::configuration.incoming_email_config['server'], port, 
                       Formageddon::configuration.incoming_email_config['username'], 
                       Formageddon::configuration.incoming_email_config['password']) do |pop|
         if pop.mails.empty?
