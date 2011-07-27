@@ -55,11 +55,11 @@ module Formageddon
           letter.status = 'TRYING_CAPTCHA'
           letter.save
           
-          #if defined? Delayed
-          #  letter.delay.send_letter(:captcha_solution => params[:captcha_solution][letter_id])
-          #else
+          if defined? Delayed
+            letter.delay.send_letter(:captcha_solution => params[:captcha_solution][letter_id])
+          else
             letter.send_letter(:captcha_solution => params[:captcha_solution][letter_id])
-          #end
+          end
         end
         
         respond_to do |format|
