@@ -63,6 +63,10 @@
       %p.message
         = fl.label :message, label_for(:message)
         = fl.text_area :message
+        
+      .count 
+        Characters Remaining:&nbsp;&nbsp;
+        %span#counter
 
 - if thread.formageddon_recipient_id && thread.formageddon_recipient_type
   = f.hidden_field 'formageddon[formageddon_recipient_id]'

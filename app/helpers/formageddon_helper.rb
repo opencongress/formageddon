@@ -71,6 +71,8 @@ module FormageddonHelper
       'City'
     when :state, 'state', 'sender_state'
       'State'
+    when :state_house, 'state_house', 'sender_state_house'
+      'State (House Form)'
     when :zip5, 'zip5', 'sender_zip5'
       'Zip Code'
     when :zip4, 'zip4', 'sender_zip4'

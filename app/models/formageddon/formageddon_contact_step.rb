@@ -97,6 +97,7 @@ module Formageddon
                 elsif ff.value == 'state_house'
                   state = State.find_by_abbreviation(letter.value_for('state'))
                   
+                  puts "FILLING value WITH: #{state.abbreviaion}#{state.name}"
                   field.value = "#{state.abbreviaion}#{state.name}"
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
@@ -135,8 +136,28 @@ module Formageddon
            
             return false
           end
+          
+          puts "PAGE::::::#{browser.page.parser.to_s}"
         
-          if formageddon_form.success_string.blank?
+          if ((!formageddon_form.success_string.blank? and (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/)) or generic_confirmation?(browser.page.parser.to_s))
+            if letter.kind_of? Formageddon::FormageddonLetter
+              letter.status = 'SENT'
+              letter.save
+            end
+          
+            if save_states
+              delivery_attempt.result = 'SUCCESS'
+              delivery_attempt.save
+            
+              # save on success for now, just in case we start getting false positives here
+              delivery_attempt.save_after_browser_state(browser)
+            end
+          
+            return true
+            
+          elsif formageddon_form.success_string.blank?
+            formageddon_form.success_string.blank? and !generic_confirmation?(browser.page.parser.to_s)
+             
             if letter.kind_of? Formageddon::FormageddonLetter
               letter.status = 'WARNING: Confirmation message is blank. Unable to confirm delivery.'
               letter.save
@@ -150,7 +171,7 @@ module Formageddon
             end
           
             return true
-          elsif (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/).nil?
+          else 
             # save the browser state in the delivery attempt
             delivery_attempt.save_after_browser_state(browser) if save_states
           
@@ -174,21 +195,6 @@ module Formageddon
           
           
             return false
-          else
-            if letter.kind_of? Formageddon::FormageddonLetter
-              letter.status = 'SENT'
-              letter.save
-            end
-          
-            if save_states
-              delivery_attempt.result = 'SUCCESS'
-              delivery_attempt.save
-            
-              # save on success for now, just in case we start getting false positives here
-              delivery_attempt.save_after_browser_state(browser)
-            end
-          
-            return true
           end
         end
       rescue
@@ -237,6 +243,14 @@ module Formageddon
           delivery_attempt.save
         end
       end
+    end
+    
+    def generic_confirmation?(content)
+      if content =~ /thank you/i or content =~ /message sent/
+        return true
+      end
+      
+      return false
     end
   end
 end

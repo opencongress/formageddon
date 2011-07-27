@@ -7,6 +7,7 @@ module Formageddon
     
     validates_presence_of :subject, :message => "You must enter a letter subject."
     validates_presence_of :message, :message => "You must enter some content in your message."
+    validates_length_of :message, :maximum => 8000
     
     def send_letter(options = {})
       recipient = formageddon_thread.formageddon_recipient
