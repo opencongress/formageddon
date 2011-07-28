@@ -47,7 +47,11 @@
 %p.sender_state
   = f.label :sender_state, label_for(:sender_state)
   = f.select :sender_state, options_for_select(Formageddon::FormageddonFormField.states.map { |s| [s.to_s, s.to_s] })
-  
+
+%p.sender_phone
+  = f.label :sender_phone, label_for(:sender_phone)
+  = f.text_field :sender_phone
+    
 %p.privacy_options
   = f.label :privacy, 'Privacy Options'
   %span After sending, this letter will be viewable to:

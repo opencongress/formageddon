@@ -14,6 +14,7 @@ module Formageddon
     validates_presence_of :sender_email, :message => "Email address can't be blank."
     validates_presence_of :sender_city, :message => "City can't be blank."
     validates_presence_of :sender_zip5, :message => "Zip can't be blank."
+    validates_presence_of :sender_phone, :message => "Phone number can't be blank."
     
     def sender_full_name
       "#{sender_first_name} #{sender_last_name}"
