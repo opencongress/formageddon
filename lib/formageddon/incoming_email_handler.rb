@@ -13,7 +13,7 @@ module Formageddon
       
       letter = FormageddonLetter.new
       letter.status = 'RECEIVED'
-      letter.direction = 'TO_RECIPIENT'
+      letter.direction = 'TO_SENDER'
       
       letter.subject = email.subject
       letter.message = email.multipart? ? (email.text_part ? email.text_part.body.decoded : nil) : email.body.decoded
