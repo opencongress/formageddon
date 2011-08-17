@@ -93,11 +93,21 @@ module Formageddon
                 elsif ff.value == 'get_response'
                   field.value = 'Yes'
                 elsif ff.value == 'issue_area'
-                  field.value = 'Other'
+                  if field.kind_of?(Mechanize::Form::SelectList)
+                    option_field = field.options_with(:value => /other|general/i).first
+                    
+                    if option_field
+                      option_field.select
+                    else
+                      # select a random one.  not ideal.
+                      field.options[rand(field.options.size-1)+1].select
+                    end
+                  else
+                    field.value = 'Other'
+                  end
                 elsif ff.value == 'state_house'
                   state = State.find_by_abbreviation(letter.value_for('state'))
                   
-                  puts "FILLING value WITH: #{state.abbreviaion}#{state.name}"
                   field.value = "#{state.abbreviaion}#{state.name}"
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
@@ -105,7 +115,6 @@ module Formageddon
             
               # Hashes are used in form building
               elsif letter.kind_of? Hash
-                puts "FILLING #{field.name} with #{letter[ff.value]}"
                 field.value = letter[ff.value]
               end
             end
