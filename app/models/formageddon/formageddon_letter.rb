@@ -19,6 +19,7 @@ module Formageddon
       end
       
       browser = Mechanize.new
+      browser.user_agent_alias = "Windows IE 7"
       
       case status
       when 'START', 'RETRY'
