@@ -30,6 +30,7 @@ module Formageddon
         if save_states
           delivery_attempt = options[:delivery_attempt]
           delivery_attempt.letter_contact_step = self.step_number unless delivery_attempt.nil?
+          delivery_attempt.save
         end
       
         case self.command

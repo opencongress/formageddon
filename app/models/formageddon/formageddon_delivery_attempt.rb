@@ -25,7 +25,7 @@ module Formageddon
     
     def save_state(state, browser)
       state.cookie_jar = YAML.dump(browser.cookie_jar)
-      state.raw_html = browser.page.parser.to_s
+      state.raw_html = Iconv.conv("UTF-8//IGNORE", "US-ASCII", browser.page.parser.to_s)
       state.uri = browser.page.uri.to_s
       
       state.save
