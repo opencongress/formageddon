@@ -146,9 +146,7 @@ module Formageddon
               end
             end
           end
-        
-          puts "\n\n\n\n\n\n\n\nSUBMITTING THIS FORM::#{form}\n\n\n\n\n\n\n\n\n"
-        
+                
           begin
             form.submit
           rescue Timeout::Error
@@ -164,9 +162,7 @@ module Formageddon
            
             return false
           end
-          
-          puts "PAGE::::::#{browser.page.parser.to_s}"
-        
+                  
           if ((!formageddon_form.success_string.blank? and (browser.page.parser.to_s =~ /#{formageddon_form.success_string}/)) or generic_confirmation?(browser.page.parser.to_s))
             if letter.kind_of? Formageddon::FormageddonLetter
               letter.status = 'SENT'
@@ -243,7 +239,6 @@ module Formageddon
       if captcha_node
         @captcha_image = browser.page.image_urls.select{ |ui| ui =~ /#{Regexp.escape(captcha_node.attributes['src'].value)}/ }.first
       end
-      puts "captcha node: #{captcha_node} / captcha image: #{@captcha_image}"
       
       unless @captcha_image.blank?
         # turn following into method
@@ -259,8 +254,6 @@ module Formageddon
     
     def save_after_error(ex, letter = nil, delivery_attempt = nil, save_states = true)
       @error_msg = "ERROR: #{ex}"
-      
-      puts "ERROR!!!! #{@error_msg}"
       
       unless letter.nil?
         if letter.kind_of? Formageddon::FormageddonLetter
