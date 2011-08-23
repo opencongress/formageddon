@@ -17,6 +17,9 @@
           Will use field names:
           %strong= step.formageddon_form.use_field_names? ? 'Yes' : 'No'
         %p
+          Will use user's real email address:
+          %strong= step.formageddon_form.use_real_email_address? ? 'Yes' : 'No'
+        %p
           Look for the following message in the response:
           %strong= step.formageddon_form.success_string.blank? ? 'N/A' : step.formageddon_form.success_string
       - elsif step.command =~ /^visit/

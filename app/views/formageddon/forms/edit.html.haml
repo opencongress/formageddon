@@ -22,6 +22,9 @@
     .use_field_names
       = form_form.check_box :use_field_names
       Use field names to submit forms? (uncheck this if the field names are dynamically generated)
+    .use_real_email_address
+      = form_form.check_box :use_real_email_address
+      Use user's email address? (use this only if form rejects email addresses with '+' characters)
   
     %p
       What is a successful response (in English)?

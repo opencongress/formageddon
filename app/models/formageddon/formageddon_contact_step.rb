@@ -93,7 +93,9 @@ module Formageddon
             unless ff.nil?
               if letter.kind_of? FormageddonLetter
             
-                if ff.value == 'email' and not Formageddon::configuration.reply_domain.nil?
+                if ff.value == 'email' and 
+                    not Formageddon::configuration.reply_domain.nil? and 
+                    not formageddon.use_real_email_address?
                   field.value = "formageddon+#{letter.formageddon_thread.id}@#{Formageddon::configuration.reply_domain}"
                 elsif ff.value == 'want_response'
                   if field.kind_of?(Mechanize::Form::SelectList)
@@ -107,6 +109,19 @@ module Formageddon
                     end
                   else
                     field.value = 'Yes'
+                  end
+                elsif ff.value == 'title' and field.kind_of?(Mechanize::Form::SelectList)
+                  title = letter.value_for(ff.value)
+                  
+                  # the chop value has no period
+                  option_field = field.options_with(:value => /#{title}/i).first ||
+                                 field.options_with(:value => /#{title.chop}/i).first
+                                 
+                  if option_field
+                    option_field.select
+                  else
+                    # select a random one.  not ideal.
+                    field.options[rand(field.options.size-1)+1].select
                   end
                 elsif ff.value == 'issue_area'
                   if field.kind_of?(Mechanize::Form::SelectList)
@@ -125,7 +140,6 @@ module Formageddon
                   state = State.find_by_abbreviation(letter.value_for('state'))
                   
                   field.value = "#{state.abbreviaion}#{state.name}"
-                elsif ff.value == 'want_response'
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
                 end

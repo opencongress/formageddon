@@ -11,6 +11,7 @@ class CreateFormageddonTables < ActiveRecord::Migration
       t.integer :formageddon_contact_step_id
       t.integer :form_number
       t.boolean :use_field_names
+      t.boolean :use_real_email_address, :default => false
       t.string :success_string
     end
 
