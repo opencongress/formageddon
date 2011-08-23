@@ -20,6 +20,7 @@ module Formageddon
       
       browser = Mechanize.new
       browser.user_agent_alias = "Windows IE 7"
+      browser.follow_meta_refresh = true
       
       case status
       when 'START', 'RETRY'

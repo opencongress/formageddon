@@ -38,7 +38,11 @@ module Formageddon
           command, url = self.command.split(/::/)
         
           begin
-            browser.get(url)
+            browser.get(url) do |page|
+              # remove some bad html that appears on some pages
+              page.body = page.body.gsub(/<div class="clear"\/> <\/div>/, '')
+              page.body = page.body.gsub(/<div class="clear"\/><\/div>/, '')
+            end
           rescue Timeout::Error
             save_after_error($!, options[:letter], delivery_attempt, save_states)
           
@@ -91,8 +95,19 @@ module Formageddon
             
                 if ff.value == 'email' and not Formageddon::configuration.reply_domain.nil?
                   field.value = "formageddon+#{letter.formageddon_thread.id}@#{Formageddon::configuration.reply_domain}"
-                elsif ff.value == 'get_response'
-                  field.value = 'Yes'
+                elsif ff.value == 'want_response'
+                  if field.kind_of?(Mechanize::Form::SelectList)
+                    option_field = field.options_with(:value => /yes/i).first
+                    
+                    if option_field
+                      option_field.select
+                    else
+                      # select a random one.  not ideal.
+                      field.options[rand(field.options.size-1)+1].select
+                    end
+                  else
+                    field.value = 'Yes'
+                  end
                 elsif ff.value == 'issue_area'
                   if field.kind_of?(Mechanize::Form::SelectList)
                     option_field = field.options_with(:value => /other|general/i).first
@@ -110,6 +125,7 @@ module Formageddon
                   state = State.find_by_abbreviation(letter.value_for('state'))
                   
                   field.value = "#{state.abbreviaion}#{state.name}"
+                elsif ff.value == 'want_response'
                 else
                   field.value = letter.value_for(ff.value) unless ff.not_changeable?
                 end
@@ -130,6 +146,8 @@ module Formageddon
               end
             end
           end
+        
+          puts "\n\n\n\n\n\n\n\nSUBMITTING THIS FORM::#{form}\n\n\n\n\n\n\n\n\n"
         
           begin
             form.submit
@@ -242,6 +260,8 @@ module Formageddon
     def save_after_error(ex, letter = nil, delivery_attempt = nil, save_states = true)
       @error_msg = "ERROR: #{ex}"
       
+      puts "ERROR!!!! #{@error_msg}"
+      
       unless letter.nil?
         if letter.kind_of? Formageddon::FormageddonLetter
           letter.status = @error_msg
@@ -256,7 +276,7 @@ module Formageddon
     end
     
     def generic_confirmation?(content)
-      if content =~ /thank you/i or content =~ /message sent/
+      if content =~ /thank you/i or content =~ /message sent/i
         return true
       end
       
