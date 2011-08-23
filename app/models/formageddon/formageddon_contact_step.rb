@@ -95,7 +95,7 @@ module Formageddon
             
                 if ff.value == 'email' and 
                     not Formageddon::configuration.reply_domain.nil? and 
-                    not formageddon.use_real_email_address?
+                    not formageddon_form.use_real_email_address?
                   field.value = "formageddon+#{letter.formageddon_thread.id}@#{Formageddon::configuration.reply_domain}"
                 elsif ff.value == 'want_response'
                   if field.kind_of?(Mechanize::Form::SelectList)
