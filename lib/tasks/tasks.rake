@@ -1,8 +1,5 @@
-require 'rspec/core/rake_task'
-require 'cucumber'
-require 'cucumber/rake/task'
 
-namespace :formageddon do
+namespace :formageddon do  
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.pattern = File.dirname(__FILE__) + '/../../spec/**/*_spec.rb'
     t.verbose = true

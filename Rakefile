@@ -1,4 +1,12 @@
-load 'lib/tasks/tasks.rake'
+begin
+  require 'rspec/core/rake_task'
+  require 'cucumber'
+  require 'cucumber/rake/task'
+  load 'lib/tasks/tasks.rake'
+rescue LoadError
+  $stderr.puts "rspec and/or cucumber not installed."
+  exit 1
+end
 
 begin
   require 'rspec/core/rake_task'
