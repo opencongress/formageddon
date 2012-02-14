@@ -1,23 +1,4 @@
-begin
-  require 'rspec/core/rake_task'
-  require 'cucumber'
-  require 'cucumber/rake/task'
-  load 'lib/tasks/tasks.rake'
-rescue LoadError
-  $stderr.puts "rspec and/or cucumber not installed."
-  exit 1
-end
-
-begin
-  require 'rspec/core/rake_task'
-rescue LoadError
-  begin
-    gem 'rspec-rails', '>= 2.0.0'
-    require 'rspec/core/rake_task'
-  rescue LoadError
-    puts "[govkit:] RSpec - or one of it's dependencies - is not available. Install it with: sudo gem install rspec-rails"
-  end
-end
+load 'lib/tasks/tasks.rake'
 
 begin
   require "jeweler"
